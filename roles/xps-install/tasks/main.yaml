@@ -1,0 +1,63 @@
+---
+- name: Install necessary packages
+  become: true
+  pacman:
+    update_cache: yes
+    state: latest
+    name:
+      - linux-lts
+      - linux-lts-headers
+      - intel-ucode
+      - efibootmgr
+      - bash-completion
+
+- name: Find encrypted disk id
+  become: true
+  command: find -L /dev/disk/by-id -samefile {{ hdd_device }} -print -quit
+  register: encrypted_disk_id
+
+- name: Find EFI disk id
+  become: true
+  command: blkid -o value -s UUID {{ sdcard_device }}1
+  register: efi_disk_id
+
+- name: Create /etc/crypttab.initramfs
+  become: true
+  template:
+    src: templates/etc/crypttab.initramfs.j2
+    dest: /etc/crypttab.initramfs
+
+- name: Copy configuration files
+  become: true
+  copy:
+    src: etc/
+    dest: /etc
+
+- name: Configure mkinitcpio.conf
+  become: true
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict:
+    MODULES: (vfat)
+    FILES: (/boot/{{ luks_header_file }})
+    HOOKS: (base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)
+
+- name: Regenerate initrd image
+  become: true
+  command: mkinitcpio --preset linux-lts
+
+- name: Create EFI entry
+  become: true
+  shell: >
+    efibootmgr
+    --disk {{ sdcard_device }}
+    --part 1
+    --create
+    --label "Arch Linux"
+    --loader /vmlinuz-linux-lts
+    --unicode "root=/dev/mapper/root rw initrd=\initramfs-linux-lts.img"
+    --verbose
+  args:
+    executable: /bin/bash

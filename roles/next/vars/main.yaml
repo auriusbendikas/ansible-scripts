@@ -1,0 +1,5 @@
+---
+sdcard_device: /dev/sda
+hdd_device: /dev/sdb
+luks_header_file: root-luks-header.img
+luks_passphrase: test

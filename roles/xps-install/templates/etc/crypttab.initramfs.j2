@@ -1,0 +1,5 @@
+# Configuration for encrypted block devices.
+# See crypttab(5) for details.
+
+# <name>       <device>                                     <password>              <options>
+root    {{ encrypted_disk_id.stdout }}    none    discard,header=/boot/{{ luks_header_file }}

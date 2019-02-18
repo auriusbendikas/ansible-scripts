@@ -1,0 +1,21 @@
+---
+- name: Set up hostname
+  become: true
+  template:
+    src: etc/hostname
+    dest: /etc/hostname
+
+- name: Install network packages
+  become: true
+  pacman:
+    update_cache: true
+    state: latest
+    name:
+      - networkmanager
+
+- name: Start network service
+  become: true
+  systemd:
+    name: NetworkManager
+    state: started
+    enabled: true
