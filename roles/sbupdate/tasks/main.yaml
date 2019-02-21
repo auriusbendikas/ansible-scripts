@@ -1,0 +1,35 @@
+---
+- name: Install sbsigntools
+  become: true
+  pacman:
+    state: latest
+    name: sbsigntools
+
+- name: Clone sbupdate GIT repository to /tmp/sbupdate
+  become: true
+  become_user: nobody
+  git:
+    repo: https://aur.archlinux.org/sbupdate-git.git
+    dest: /tmp/sbupdate
+    force: true
+
+- name: Build sbupdate
+  become: true
+  become_user: nobody
+  shell: |
+    cd /tmp/sbupdate
+    makepkg -cr
+  args:
+    executable: /bin/bash
+
+- name: Install sbupdate
+  become: true
+  shell: pacman --noconfirm -U /tmp/sbupdate/sbupdate*.pkg.tar.xz
+  args:
+    executable: /bin/bash
+
+- name: Remove /tmp/sbupdate
+  become: true
+  file:
+    path: /tmp/sbupdate
+    state: absent

@@ -1,0 +1,38 @@
+---
+- name: Mount {{ encrypted_device_name }}
+  become: true
+  command: mount /dev/mapper/{{ encrypted_device_name }} /mnt
+  args:
+    warn: false
+
+- name: Create boot directory
+  become: true
+  file:
+    path: /mnt/boot/efi
+    state: directory
+
+- name: Mount EFI
+  become: true
+  command: mount {{ efi_partition }} /mnt/boot/efi
+  args:
+    warn: false
+
+- name: Install base packages
+  become: true
+  command: pacstrap /mnt base git ansible
+
+- name: Get ansible-scripts git repository location
+  become: true
+  command: git rev-parse --show-toplevel
+  register: git_repo_location
+
+- name: Copy ansible-scripts git repository to same location on /mnt
+  become: true
+  shell: |
+    REPO_LOCATION={{ git_repo_location.stdout }}
+    NEW_REPO_LOCATION=/mnt$(dirname $REPO_LOCATION)
+    mkdir -p "$NEW_REPO_LOCATION"
+    cp -R "$REPO_LOCATION" "$NEW_REPO_LOCATION"
+  args:
+    creates: /mnt{{ git_repo_location.stdout }}
+    executable: /bin/bash

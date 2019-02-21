@@ -1,0 +1,52 @@
+---
+- name: Create EFI keys directory {{ efi_keys_location }}
+  become: true
+  file:
+    path: '{{ efi_keys_location }}'
+    state: directory
+
+- name: Generate GUID for {{ user_full_name }}
+  become: true
+  shell: uuidgen --random > {{ efi_guid_txt }}
+  args:
+    creates: '{{ efi_guid_txt }}'
+    executable: /bin/bash
+
+- name: Load generated GUID
+  become: true
+  command: cat {{ efi_guid_txt }}
+  register: efi_keys_guid
+
+- name: Generate platform key for "{{ user_full_name }}" GUID "{{ efi_keys_guid.stdout }}"
+  become: true
+  shell: |
+    openssl req -newkey rsa:4096 -nodes -keyout {{ efi_platform_key }} -new -x509 -sha256 -days 36500 -subj "/CN={{ user_full_name }} Platform Key/" -out {{ efi_platform_crt }}
+    openssl x509 -outform DER -in {{ efi_platform_crt }} -out {{ efi_platform_cer }}
+    cert-to-efi-sig-list -g "{{ efi_keys_guid.stdout }}" {{ efi_platform_crt }} {{ efi_platform_esl }}
+    sign-efi-sig-list -g "{{ efi_keys_guid.stdout }}" -k {{ efi_platform_key }} -c {{ efi_platform_crt }} PK {{ efi_platform_esl }} {{ efi_platform_auth }}
+    sign-efi-sig-list -g "{{ efi_keys_guid.stdout }}" -k {{ efi_platform_key }} -c {{ efi_platform_crt }} PK /dev/null {{ efi_platform_remove_auth }}
+  args:
+    creates: '{{ efi_platform_key }}'
+    executable: /bin/bash
+
+- name: Generate exchange key for "{{ user_full_name }}" GUID "{{ efi_keys_guid.stdout }}"
+  become: true
+  shell: |
+    openssl req -newkey rsa:4096 -nodes -keyout {{ efi_exchange_key }} -new -x509 -sha256 -days 36500 -subj "/CN={{ user_full_name }} Key Exchange Key/" -out {{ efi_exchange_crt }}
+    openssl x509 -outform DER -in {{ efi_exchange_crt }} -out {{ efi_exchange_cer }}
+    cert-to-efi-sig-list -g "{{ efi_keys_guid.stdout }}" {{ efi_exchange_crt }} {{ efi_exchange_esl }}
+    sign-efi-sig-list -g "{{ efi_keys_guid.stdout }}" -k {{ efi_platform_key }} -c {{ efi_platform_crt }} KEK {{ efi_exchange_esl }} {{ efi_exchange_auth }}
+  args:
+    creates: '{{ efi_exchange_key }}'
+    executable: /bin/bash
+
+- name: Generate signature database key for "{{ user_full_name }}" GUID "{{ efi_keys_guid.stdout }}"
+  become: true
+  shell: |
+    openssl req -newkey rsa:4096 -nodes -keyout {{ efi_database_key }} -new -x509 -sha256 -days 36500 -subj "/CN={{ user_full_name }} Signature Database Key/" -out {{ efi_database_crt }}
+    openssl x509 -outform DER -in {{ efi_database_crt }} -out {{ efi_database_cer }}
+    cert-to-efi-sig-list -g "{{ efi_keys_guid.stdout }}" {{ efi_database_crt }} {{ efi_database_esl }}
+    sign-efi-sig-list -g "{{ efi_keys_guid.stdout }}" -k {{ efi_exchange_key }} -c {{ efi_exchange_crt }} db {{ efi_database_esl }} {{ efi_database_auth }}
+  args:
+    creates: '{{ efi_database_key }}'
+    executable: /bin/bash

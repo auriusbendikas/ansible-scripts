@@ -1,0 +1,21 @@
+---
+user_full_name: Aurius Bendikas Chang
+efi_keys_root: /
+efi_keys_location: '{{ efi_keys_root }}root/secure-boot'
+efi_guid_txt: '{{ efi_keys_location }}/GUID.txt'
+efi_platform_key: '{{ efi_keys_location }}/PK.key'
+efi_platform_crt: '{{ efi_keys_location }}/PK.crt'
+efi_platform_cer: '{{ efi_keys_location }}/PK.cer'
+efi_platform_esl: '{{ efi_keys_location }}/PK.esl'
+efi_platform_auth: '{{ efi_keys_location }}/PK.auth'
+efi_platform_remove_auth: '{{ efi_keys_location }}/rm_PK.auth'
+efi_exchange_key: '{{ efi_keys_location }}/KEK.key'
+efi_exchange_crt: '{{ efi_keys_location }}/KEK.crt'
+efi_exchange_cer: '{{ efi_keys_location }}/KEK.cer'
+efi_exchange_esl: '{{ efi_keys_location }}/KEK.esl'
+efi_exchange_auth: '{{ efi_keys_location }}/KEK.auth'
+efi_database_key: '{{ efi_keys_location }}/DB.key'
+efi_database_cer: '{{ efi_keys_location }}/DB.cer'
+efi_database_crt: '{{ efi_keys_location }}/DB.crt'
+efi_database_esl: '{{ efi_keys_location }}/DB.esl'
+efi_database_auth: '{{ efi_keys_location }}/DB.auth'

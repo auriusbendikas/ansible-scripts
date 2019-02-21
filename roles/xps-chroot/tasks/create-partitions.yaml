@@ -1,0 +1,44 @@
+---
+- name: Create EFI
+  become: true
+  command: sgdisk --zap --new=0:0:0 --typecode=0:EF00 --change-name=0:EFI --print {{ efi_device }}
+
+- name: Format EFI
+  become: true
+  command: mkfs.fat -F32 {{ efi_partition }}
+
+- name: Mount EFI
+  become: true
+  command: mount {{ efi_partition }} /boot
+  args:
+    warn: false
+
+- name: Encrypt device
+  become: true
+  shell: >
+    cryptsetup luksFormat {{ encrypted_device }} --type luks2 --cipher=aes-xts-plain64 --key-size=512
+    --use-random --header=/boot/{{ luks_header_file }} --align-payload 0 --force-password
+  args:
+    creates: /boot/{{ luks_header_file }}
+    stdin: '{{ luks_passphrase }}'
+    executable: /bin/bash
+
+- name: Open encrypted device
+  become: true
+  shell: >
+    cryptsetup open {{ encrypted_device }} {{ encrypted_device_name }} --type luks2 --allow-discards
+    --header=/boot/{{ luks_header_file }}
+  args:
+    creates: /dev/mapper/{{ encrypted_device_name }}
+    stdin: '{{ luks_passphrase }}'
+    executable: /bin/bash
+
+- name: Unmount EFI
+  become: true
+  command: umount /boot
+  args:
+    warn: false
+
+- name: Format {{ encrypted_device_name }}
+  become: true
+  command: mkfs.ext4 /dev/mapper/{{ encrypted_device_name }}

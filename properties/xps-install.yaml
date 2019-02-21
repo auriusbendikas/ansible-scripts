@@ -1,0 +1,4 @@
+---
+efi_device: /dev/sda
+encrypted_device: /dev/sdb
+luks_passphrase: test

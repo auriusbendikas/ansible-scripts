@@ -2,3 +2,6 @@
 - hosts: all
   roles:
     - xps-chroot
+    - role: create-efi-keys
+      vars:
+        efi_keys_root: /mnt/

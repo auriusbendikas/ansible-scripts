@@ -1,0 +1,8 @@
+---
+efi_device: /dev/sda
+efi_partition_number: 1
+efi_partition: '{{ efi_device }}{{ efi_partition_number }}'
+encrypted_device: /dev/sdb
+encrypted_device_name: root
+luks_header_file: '{{ encrypted_device_name }}-luks-header.img'
+luks_passphrase: changeme
