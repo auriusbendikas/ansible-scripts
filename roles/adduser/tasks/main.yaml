@@ -1,0 +1,38 @@
+---
+- name: Install sudo
+  become: true
+  pacman:
+    state: latest
+    name: sudo
+
+- name: Copy configuration files
+  become: true
+  copy:
+    src: etc/
+    dest: /etc
+
+- name: Create group {{ user_group }}
+  become: true
+  group:
+    name: '{{ user_group }}'
+    gid: '{{ user_gid }}'
+    state: present
+
+- name: Create user {{ user_name }}
+  become: true
+  user:
+    name: '{{ user_name }}'
+    password: '{{ user_password | password_hash("sha512", "mysecretsalt") }}'
+    uid: '{{ user_uid }}'
+    comment: '{{ user_full_name }}'
+    group: '{{ user_group }}'
+    shell: /bin/bash
+    groups:
+      - wheel
+      - storage
+      - input
+      - kvm
+    state: present
+
+- name: Lock root account
+  command: passwd -l root

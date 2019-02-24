@@ -1,0 +1,7 @@
+---
+user_name: aurius
+user_password: test
+user_uid: 1000
+user_full_name: Aurius Bendikas Chang
+user_group: '{{ user_name }}'
+user_gid: '{{ user_uid }}'

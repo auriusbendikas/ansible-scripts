@@ -2,9 +2,6 @@
 - name: Install essential packages
   become: true
   pacman:
-    update_cache: yes
     state: latest
     name:
       - bash-completion
-      - base-devel
-      - sudo

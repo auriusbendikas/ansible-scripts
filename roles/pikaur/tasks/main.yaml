@@ -4,6 +4,7 @@
   pacman:
     state: latest
     name:
+      - base-devel
       - pyalpm
       - asp
 
