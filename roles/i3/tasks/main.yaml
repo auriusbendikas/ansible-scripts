@@ -1,0 +1,41 @@
+---
+- name: Install necessary packages
+  become: true
+  pacman:
+    state: latest
+    name:
+      - xorg-server
+      - i3-wm
+      - lightdm
+
+- name: Install necessary AUR packages 
+  become: true
+  command: >
+    pikaur --noconfirm -S
+    lightdm-slick-greeter
+
+- name: Create templated configurations
+  become: true
+  template:
+    src: '{{ item.src }}'
+    dest: '/{{ item.path }}'
+  with_filetree: templates/
+  when: item.state == 'file'
+
+- name: Enable lightdm-plymouth service
+  become: true
+  systemd:
+    name: lightdm-plymouth
+    enabled: true
+
+
+# - name: Configure /etc/mkinitcpio.conf
+#   become: true
+#   lineinfile:
+#     path: /etc/mkinitcpio.conf
+#     regexp: '^{{ item.key | regex_escape() }}='
+#     line: '{{ item.key }}={{ item.value }}'
+#   with_dict:
+#     MODULES: (vfat)
+#     FILES: (/boot/efi/{{ luks_header_file }})
+#     HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)

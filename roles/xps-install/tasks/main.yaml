@@ -7,8 +7,9 @@
       - intel-ucode
       - linux-lts
       - linux-lts-headers
-      - efibootmgr
+      - xf86-video-intel
       - terminus-font
+      - efibootmgr
 
 - name: Install AUR sbupdate-git and plymouth
   become: true
