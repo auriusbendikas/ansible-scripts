@@ -1,11 +1,18 @@
 ---
 - name: Create EFI
   become: true
-  command: sgdisk --zap --new=0:0:0 --typecode=0:EF00 --change-name=0:EFI --print {{ efi_device }}
+  command: >
+    sgdisk
+    --zap-all
+    --new={{ efi_partition_number }}:0:0
+    --typecode={{ efi_partition_number }}:EF00
+    --change-name={{ efi_partition_number }}:uefi
+    --print
+    {{ efi_device }}
 
 - name: Format EFI
   become: true
-  command: mkfs.fat -F32 {{ efi_partition }}
+  command: mkfs.fat -n uefi -F 32 {{ efi_partition }}
 
 - name: Mount EFI
   become: true
@@ -41,4 +48,4 @@
 
 - name: Format {{ encrypted_device_name }}
   become: true
-  command: mkfs.ext4 /dev/mapper/{{ encrypted_device_name }}
+  command: mkfs.ext4 -L {{ encrypted_device_name }} /dev/mapper/{{ encrypted_device_name }}

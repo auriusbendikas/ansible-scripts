@@ -1,4 +1,10 @@
 ---
+- name: Install efitools
+  become: true
+  pacman:
+    state: latest
+    name: efitools
+
 - name: Create EFI keys directory {{ efi_keys_location }}
   become: true
   file:

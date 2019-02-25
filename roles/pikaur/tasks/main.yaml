@@ -8,9 +8,13 @@
       - pyalpm
       - asp
 
+- name: Creates /tmp/.ansible-{{ build_user }}/tmp
+  become: true
+  command: runuser -u {{ build_user }} -- mkdir -p /tmp/.ansible-{{ build_user }}/tmp
+
 - name: Clone pikaur GIT repository to /tmp/pikaur
   become: true
-  become_user: nobody
+  become_user: '{{ build_user }}'
   git:
     repo: https://aur.archlinux.org/pikaur.git
     dest: /tmp/pikaur
@@ -18,7 +22,7 @@
 
 - name: Build pikaur
   become: true
-  become_user: nobody
+  become_user: '{{ build_user }}'
   shell: |
     cd /tmp/pikaur
     makepkg -cr

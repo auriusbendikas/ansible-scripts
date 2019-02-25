@@ -1,3 +1,0 @@
----
-- import_tasks: create-partitions.yaml
-- import_tasks: prepare-chroot.yaml

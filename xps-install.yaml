@@ -2,6 +2,3 @@
 - hosts: all
   roles:
     - xps-install
-    - network
-    - adduser
-    - i3

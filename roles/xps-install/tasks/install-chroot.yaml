@@ -19,7 +19,7 @@
 
 - name: Install base packages
   become: true
-  command: pacstrap /mnt base git ansible
+  command: pacstrap /mnt base git ansible networkmanager
 
 - name: Get ansible-scripts git repository location
   become: true
@@ -35,4 +35,12 @@
     cp -R "$REPO_LOCATION" "$NEW_REPO_LOCATION"
   args:
     creates: /mnt{{ git_repo_location.stdout }}
+    executable: /bin/bash
+
+- name: Configure networkmanager
+  become: true
+  shell: |
+    echo "{{ hostname }}" > /mnt/etc/hostname
+    arch-chroot /mnt systemctl enable NetworkManager
+  args:
     executable: /bin/bash

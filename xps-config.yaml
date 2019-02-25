@@ -1,0 +1,7 @@
+---
+- hosts: all
+  roles:
+    - essentials
+    - xps-config
+    - adduser
+    - i3

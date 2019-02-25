@@ -1,0 +1,69 @@
+---
+- name: Install necessary packages
+  become: true
+  pacman:
+    state: latest
+    name:
+      - intel-ucode
+      - linux-lts
+      - linux-lts-headers
+      - xf86-video-intel
+      - terminus-font
+      - efibootmgr
+
+- name: Install AUR sbupdate-git and plymouth
+  become: true
+  command: >
+    pikaur --noconfirm -S
+    sbupdate-git
+    plymouth
+
+- name: Copy configuration files
+  become: true
+  copy:
+    src: etc/
+    dest: /etc
+
+- name: Configure /etc/mkinitcpio.conf
+  become: true
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict:
+    MODULES: (i915)
+    HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)
+
+- name: Regenerate initrd image
+  become: true
+  command: mkinitcpio --preset linux-lts
+
+- name: Configure /etc/default/sbupdate
+  become: true
+  lineinfile:
+    path: /etc/default/sbupdate
+    regexp: '^#?{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}="{{ item.value }}"'
+  with_dict:
+    ESP_DIR: /boot/efi
+    OUT_DIR:
+    SPLASH: /sys/firmware/acpi/bgrt/image
+    BACKUP: 0
+    CMDLINE_DEFAULT: root=/dev/mapper/{{ encrypted_device_name }} quiet splash
+
+- name: Run sbupdate
+  become: true
+  command: sbupdate
+
+- name: Create EFI entry
+  become: true
+  shell: >
+    efibootmgr
+    --disk {{ efi_device }}
+    --part {{ efi_partition_number }}
+    --create
+    --label "Arch Linux"
+    --loader linux-lts-signed.efi
+    --verbose
+  args:
+    executable: /bin/bash

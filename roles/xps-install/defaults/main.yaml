@@ -6,3 +6,4 @@ encrypted_device: /dev/sdb
 encrypted_device_name: root
 luks_header_file: '{{ encrypted_device_name }}-luks-header.img'
 luks_passphrase: changeme
+hostname: testhost
