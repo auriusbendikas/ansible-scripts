@@ -9,12 +9,8 @@
   become: true
   pacman:
     state: latest
-    name:
-      - networkmanager
+    name: networkmanager
 
-- name: Start network service
+- name: Enable network service
   become: true
-  systemd:
-    name: NetworkManager
-    state: started
-    enabled: true
+  command: systemctl enable NetworkManager

@@ -1,4 +1,22 @@
 ---
-- hosts: all
+- hosts: localhost
   roles:
-    - xps-install
+    - partition-crypted-detached
+  vars:
+    efi_device: /dev/sda
+    encrypted_device: /dev/sdb
+    luks_passphrase: test
+    hostname: testhost
+    user_name: aurius
+    user_password: test
+    user_full_name: Aurius Bendikas Chang
+
+- hosts: chroot
+  gather_facts: false
+  roles:
+    - adduser
+  vars:
+    hostname: testhost
+    user_name: aurius
+    user_password: test
+    user_full_name: Aurius Bendikas Chang

@@ -1,4 +1,11 @@
 ---
-- hosts: all
+- hosts: chroot
+  gather_facts: false
   roles:
-    - next
+    - adduser
+    - network
+  vars:
+    hostname: testhost
+    user_name: aurius
+    user_password: test
+    user_full_name: Aurius Bendikas Chang

@@ -9,4 +9,4 @@ else
     ASK_BECOME_PASSWORD=
 fi
 
-env ANSIBLE_CONFIG=$SCRIPT_DIR/ansible.cfg ansible-playbook --inventory $SCRIPT_DIR/inventory.yaml --extra-vars @$PROPERTIES_FILE $ASK_BECOME_PASSWORD --connection=local $1
+env ANSIBLE_CONFIG=$SCRIPT_DIR/ansible.cfg ansible-playbook --inventory $SCRIPT_DIR/inventory.yaml $ASK_BECOME_PASSWORD $2 $1

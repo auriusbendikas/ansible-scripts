@@ -6,13 +6,13 @@
     --zap-all
     --new={{ efi_partition_number }}:0:0
     --typecode={{ efi_partition_number }}:EF00
-    --change-name={{ efi_partition_number }}:uefi
+    --change-name={{ efi_partition_number }}:UEFI
     --print
     {{ efi_device }}
 
 - name: Format EFI
   become: true
-  command: mkfs.fat -n uefi -F 32 {{ efi_partition }}
+  command: mkfs.fat -n UEFI -F 32 {{ efi_partition }}
 
 - name: Mount EFI
   become: true
@@ -48,4 +48,4 @@
 
 - name: Format {{ encrypted_device_name }}
   become: true
-  command: mkfs.ext4 -L {{ encrypted_device_name }} /dev/mapper/{{ encrypted_device_name }}
+  command: mkfs.ext4 -L {{ encrypted_device_name | upper }} /dev/mapper/{{ encrypted_device_name }}
