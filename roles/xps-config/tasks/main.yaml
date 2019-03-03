@@ -59,10 +59,10 @@
   become: true
   shell: >
     efibootmgr
-    --disk {{ efi_device }}
-    --part {{ efi_partition_number }}
     --create
     --label "Arch Linux"
+    --disk {{ efi_device }}
+    --part {{ efi_partition_number }}
     --loader linux-lts-signed.efi
     --verbose
   args:

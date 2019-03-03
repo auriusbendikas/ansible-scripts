@@ -1,0 +1,22 @@
+---
+- name: Create EFI
+  become: true
+  command: >
+    sgdisk
+    --zap-all
+    --new={{ efi_partition_number }}:0:+256M
+    --typecode={{ efi_partition_number }}:EF00
+    --change-name={{ efi_partition_number }}:UEFI
+    --new={{ root_partition_number }}:0:0
+    --typecode={{ root_partition_number }}:8300
+    --change-name={{ root_partition_number }}:ROOT
+    --print
+    {{ block_device }}
+
+- name: Format EFI
+  become: true
+  command: mkfs.fat -n UEFI -F 32 {{ efi_partition }}
+
+- name: Format ROOT partition
+  become: true
+  command: mkfs.ext4 -L ROOT {{ root_partition }}

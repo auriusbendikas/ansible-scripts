@@ -1,10 +1,11 @@
 ---
-- hosts: chroot
+- hosts: localhost
   gather_facts: false
   roles:
-    - adduser
-    - network
+    - partition
   vars:
+    block_device: /dev/sda
+    video_driver: vboxvideo
     hostname: testhost
     user_name: aurius
     user_password: test

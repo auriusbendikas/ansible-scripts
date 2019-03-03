@@ -1,15 +1,17 @@
 ---
 - name: Set up hostname
   become: true
-  template:
-    src: etc/hostname
+  copy:
+    content: "{{ hostname }}\n"
     dest: /etc/hostname
 
 - name: Install network packages
   become: true
   pacman:
     state: latest
-    name: networkmanager
+    name:
+      - networkmanager
+      - openssh
 
 - name: Enable network service
   become: true

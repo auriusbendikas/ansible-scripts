@@ -5,7 +5,7 @@
   args:
     warn: false
 
-- name: Create boot directory
+- name: Create boot EFI directory
   become: true
   file:
     path: /mnt/boot/efi
@@ -19,7 +19,7 @@
 
 - name: Install base packages
   become: true
-  command: pacstrap /mnt base sudo git ansible
+  command: pacstrap /mnt base sudo ansible
 
 - name: Get ansible-scripts git repository location
   become: true

@@ -5,11 +5,11 @@
     state: latest
     name: sudo
 
-- name: Copy configuration files
+- name: Add no passrwod sudo for user {{ user_name }}
   become: true
   copy:
-    src: etc/
-    dest: /etc
+    content: "%wheel ALL=(ALL) {{ 'NOPASSWD:' if not user_sudo_with_password }} ALL\n"
+    dest: /etc/sudoers.d/wheel
 
 - name: Create group {{ user_group }}
   become: true
@@ -35,4 +35,5 @@
     state: present
 
 - name: Lock root account
+  become: true
   command: passwd -l root

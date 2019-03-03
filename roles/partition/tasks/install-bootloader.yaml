@@ -1,0 +1,63 @@
+---
+- name: Find root disk id
+  become: true
+  command: blkid -o value -s UUID {{ root_partition }}
+  register: root_disk_id
+
+- name: Find EFI disk id
+  become: true
+  command: blkid -o value -s UUID {{ efi_partition }}
+  register: efi_disk_id
+
+- name: Create templated configurations
+  become: true
+  template:
+    src: '{{ item.src }}'
+    dest: '/mnt/{{ item.path }}'
+  with_filetree: templates/
+  when: item.state == 'file'
+
+- name: Configure /etc/mkinitcpio.conf
+  become: true
+  lineinfile:
+    path: /mnt/etc/mkinitcpio.conf
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      MODULES: ({{ video_driver }})
+      HOOKS: (base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)
+
+- name: Find all mkinitcpio preset files
+  become: true
+  find:
+    paths: /mnt/etc/mkinitcpio.d
+    patterns: '*.preset'
+  register: presets
+
+- name: Remove all fallback presets
+  become: true
+  lineinfile:
+    path: '{{ item.path }}'
+    regexp: '^PRESETS='
+    line: PRESETS=('default')
+  loop: '{{ presets.files }}'
+
+- name: Regenerate initrd image
+  become: true
+  command: arch-chroot /mnt mkinitcpio --allpresets
+
+- name: Create EFI entry
+  become: true
+  shell: >
+    efibootmgr
+    --create
+    --label "Arch Linux"
+    --disk {{ block_device }}
+    --part {{ efi_partition_number }}
+    --loader vmlinuz-linux-lts
+    --unicode "initrd=\initramfs-linux-lts.img root=UUID={{ root_disk_id.stdout }} quiet splash"
+    --verbose
+  args:
+    executable: /bin/bash

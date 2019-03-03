@@ -7,9 +7,8 @@
       - virtualbox-guest-utils
       - virtualbox-guest-dkms
 
-- name: Start network service
+- name: Enable VirtualBox service
   become: true
   systemd:
     name: vboxservice
-    state: started
     enabled: true

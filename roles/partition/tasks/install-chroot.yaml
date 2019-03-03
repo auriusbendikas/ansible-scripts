@@ -1,0 +1,38 @@
+---
+- name: Mount ROOT partition
+  become: true
+  command: mount {{ root_partition }} /mnt
+  args:
+    warn: false
+
+- name: Create boot EFI directory
+  become: true
+  file:
+    path: /mnt/boot
+    state: directory
+
+- name: Mount EFI
+  become: true
+  command: mount {{ efi_partition }} /mnt/boot
+  args:
+    warn: false
+
+- name: Install base packages
+  become: true
+  command: pacstrap /mnt base linux-lts linux-lts-headers sudo ansible
+
+- name: Setup systemd firstboot
+  become: true
+  command: >
+    systemd-firstboot
+    --root=/mnt
+    --locale=en_US.UTF-8
+    --locale-messages=en_US.UTF-8
+    --keymap=us
+    --timezone=Europe/Stockholm
+    --hostname={{ hostname }}
+    --setup-machine-id
+
+- name: Setup systemd default users and groups
+  become: true
+  command: systemd-sysusers --root=/mnt

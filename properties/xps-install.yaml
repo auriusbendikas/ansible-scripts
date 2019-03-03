@@ -1,8 +1,0 @@
----
-efi_device: /dev/sda
-encrypted_device: /dev/sdb
-luks_passphrase: test
-hostname: testhost
-user_name: aurius
-user_password: test
-user_full_name: Aurius Bendikas Chang
