@@ -28,6 +28,7 @@
     group: '{{ user_group }}'
     shell: /bin/bash
     groups:
+      - users
       - wheel
       - storage
       - input

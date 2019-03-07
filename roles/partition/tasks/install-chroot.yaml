@@ -17,11 +17,54 @@
   args:
     warn: false
 
-- name: Install base packages
+- name: Install base packages to chroot
   become: true
-  command: pacstrap /mnt base linux-lts linux-lts-headers sudo ansible
+  command: >
+    pacstrap /mnt
+    bash
+    bash-completion
+    bzip2
+    coreutils
+    device-mapper
+    diffutils
+    e2fsprogs
+    file
+    filesystem
+    findutils
+    gawk
+    gcc-libs
+    gettext
+    glibc
+    grep
+    gzip
+    inetutils
+    iproute2
+    iputils
+    less
+    licenses
+    linux-lts
+    linux-firmware
+    logrotate
+    man-db
+    man-pages
+    nano
+    pacman
+    pciutils
+    procps-ng
+    psmisc
+    sed
+    shadow
+    sudo
+    sysfsutils
+    systemd-sysvcompat
+    tar
+    texinfo
+    usbutils
+    util-linux
+    vi
+    which
 
-- name: Setup systemd firstboot
+- name: Execute systemd-firstboot on chroot (Setup default configurations)
   become: true
   command: >
     systemd-firstboot
@@ -33,6 +76,6 @@
     --hostname={{ hostname }}
     --setup-machine-id
 
-- name: Setup systemd default users and groups
+- name: Execute systemd-sysusers on chroot (Install default Arch Linux users and groups)
   become: true
   command: systemd-sysusers --root=/mnt

@@ -1,17 +1,10 @@
 ---
-- name: Set up hostname
-  become: true
-  copy:
-    content: "{{ hostname }}\n"
-    dest: /etc/hostname
-
 - name: Install network packages
   become: true
   pacman:
     state: latest
     name:
       - networkmanager
-      - openssh
 
 - name: Enable network service
   become: true

@@ -57,7 +57,7 @@
     --disk {{ block_device }}
     --part {{ efi_partition_number }}
     --loader vmlinuz-linux-lts
-    --unicode "initrd=\initramfs-linux-lts.img root=UUID={{ root_disk_id.stdout }} quiet splash"
+    --unicode "initrd=/initramfs-linux-lts.img root=UUID={{ root_disk_id.stdout }} quiet splash"
     --verbose
   args:
     executable: /bin/bash

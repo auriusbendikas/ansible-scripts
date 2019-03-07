@@ -1,0 +1,51 @@
+---
+- name: Expand installation ISO root filesystem
+  become: true
+  command: mount -o remount,size=1536M /run/archiso/cowspace
+  args:
+    warn: false
+    removes: /run/archiso/cowspace
+
+- name: Install yay dependencies
+  become: true
+  pacman:
+    state: latest
+    name:
+      - base-devel
+      - go
+
+- name: Creates /tmp/.ansible-{{ build_user }}/tmp
+  become: true
+  command: runuser -u {{ build_user }} -- mkdir -p /tmp/.ansible-{{ build_user }}/tmp
+
+- name: Clone yay GIT repository to /tmp/yay
+  become: true
+  become_user: '{{ build_user }}'
+  git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: /tmp/yay
+    force: true
+
+- name: Build yay
+  become: true
+  become_user: '{{ build_user }}'
+  become_flags: '--set-home'
+  environment:
+    HOME: /tmp/yay
+  shell: |
+    cd /tmp/yay
+    makepkg -cr
+  args:
+    executable: /bin/bash
+
+- name: Install yay
+  become: true
+  shell: pacman --noconfirm -U /tmp/yay/yay*.pkg.tar.xz
+  args:
+    executable: /bin/bash
+
+- name: Remove /tmp/yay
+  become: true
+  file:
+    path: /tmp/yay
+    state: absent

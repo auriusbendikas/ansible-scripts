@@ -36,3 +36,13 @@
   args:
     creates: /mnt{{ git_repo_location.stdout }}
     executable: /bin/bash
+
+- name: Create pikaur cache directory
+  become: true
+  file:
+    path: /mnt/var/cache/pikaur
+    state: directory
+
+- name: Install pikaur package manager to chroot
+  become: true
+  command: pikaur --sync --noconfirm --root=/mnt pikaur
