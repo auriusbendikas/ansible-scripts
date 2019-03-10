@@ -4,7 +4,7 @@
   command: >
     sgdisk
     --zap-all
-    --new={{ efi_partition_number }}:0:+256M
+    --new={{ efi_partition_number }}:0:+{{ efi_partition_size }}
     --typecode={{ efi_partition_number }}:EF00
     --change-name={{ efi_partition_number }}:UEFI
     --new={{ root_partition_number }}:0:0

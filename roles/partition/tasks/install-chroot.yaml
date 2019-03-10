@@ -8,14 +8,20 @@
 - name: Create boot EFI directory
   become: true
   file:
-    path: /mnt/boot
+    path: /mnt/boot/efi
     state: directory
 
 - name: Mount EFI
   become: true
-  command: mount {{ efi_partition }} /mnt/boot
+  command: mount {{ efi_partition }} /mnt/boot/efi
   args:
     warn: false
+
+- name: Install Swedish mirrorlist
+  become: true
+  copy:
+    src: templates/etc/pacman.d/mirrorlist
+    dest: /etc/pacman.d/mirrorlist
 
 - name: Install base packages to chroot
   become: true
@@ -23,6 +29,7 @@
     pacstrap /mnt
     bash
     bash-completion
+    binutils
     bzip2
     coreutils
     device-mapper

@@ -9,11 +9,21 @@
   command: blkid -o value -s UUID {{ efi_partition }}
   register: efi_disk_id
 
+- name: Create templated configuration direcories
+  become: true
+  file:
+    path: /mnt/{{ item.path }}
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'directory'
+
 - name: Create templated configurations
   become: true
   template:
-    src: '{{ item.src }}'
+    src: '{{ item.path }}'
     dest: '/mnt/{{ item.path }}'
+    mode:  preserve
   with_filetree: templates/
   when: item.state == 'file'
 
@@ -44,20 +54,16 @@
     line: PRESETS=('default')
   loop: '{{ presets.files }}'
 
+- name: Delete old initrd images
+  become: true
+  command: rm -f /mnt/boot/*.img
+  args:
+    warn: false
+
 - name: Regenerate initrd image
   become: true
   command: arch-chroot /mnt mkinitcpio --allpresets
 
-- name: Create EFI entry
+- name: Create EFI image
   become: true
-  shell: >
-    efibootmgr
-    --create
-    --label "Arch Linux"
-    --disk {{ block_device }}
-    --part {{ efi_partition_number }}
-    --loader vmlinuz-linux-lts
-    --unicode "initrd=/initramfs-linux-lts.img root=UUID={{ root_disk_id.stdout }} quiet splash"
-    --verbose
-  args:
-    executable: /bin/bash
+  shell: arch-chroot /mnt /usr/bin/generate-efi-image

@@ -1,0 +1,1 @@
+root=UUID={{ root_disk_id.stdout }} quiet

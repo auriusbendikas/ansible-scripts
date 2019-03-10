@@ -1,0 +1,15 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = File
+Target = boot/vmlinuz-linux-lts
+Target = boot/*-ucode.img
+Target = usr/lib/initcpio/*
+Target = usr/lib/systemd/boot/efi/linuxx64.efi.stub
+
+[Action]
+Description = Generating UEFI kernel image ...
+When = PostTransaction
+Exec = /usr/bin/generate-efi-image
+NeedsTargets

@@ -6,4 +6,4 @@
 UUID={{ root_disk_id.stdout }}    /        ext4    rw,relatime    0 1
 
 # {{ efi_partition }}
-UUID={{ efi_disk_id.stdout }}        /boot     vfat    rw,relatime,nofail,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro    0 2
+UUID={{ efi_disk_id.stdout }}        /boot/efi     vfat    rw,relatime,nofail,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro    0 2
