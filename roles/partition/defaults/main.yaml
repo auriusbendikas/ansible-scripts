@@ -2,8 +2,7 @@
 block_device: /dev/sda
 efi_partition_size: 256M
 efi_partition_number: 1
-efi_partition: '{{ block_device }}{{ efi_partition_number }}'
 root_partition_number: 2
-root_partition: '{{ block_device }}{{ root_partition_number }}'
+luks_password:
 video_driver: i915
 hostname: testhost

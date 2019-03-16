@@ -1,7 +1,7 @@
 ---
 - name: Mount ROOT partition
   become: true
-  command: mount {{ root_partition }} /mnt
+  command: mount {{ root_device }} /mnt
   args:
     warn: false
 
@@ -32,6 +32,7 @@
     binutils
     bzip2
     coreutils
+    cryptsetup
     device-mapper
     diffutils
     e2fsprogs

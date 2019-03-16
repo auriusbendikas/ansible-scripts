@@ -1,0 +1,4 @@
+---
+efi_partition: '{{ block_device }}{{ efi_partition_number }}'
+root_partition: '{{ block_device }}{{ root_partition_number }}'
+root_device: '{{ "/dev/mapper/root" if luks_password else root_partition }}'

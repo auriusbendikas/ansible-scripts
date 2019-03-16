@@ -8,7 +8,7 @@
     --typecode={{ efi_partition_number }}:EF00
     --change-name={{ efi_partition_number }}:UEFI
     --new={{ root_partition_number }}:0:0
-    --typecode={{ root_partition_number }}:8300
+    --typecode={{ root_partition_number }}:8304
     --change-name={{ root_partition_number }}:ROOT
     --print
     {{ block_device }}
@@ -17,6 +17,24 @@
   become: true
   command: mkfs.fat -n UEFI -F 32 {{ efi_partition }}
 
+- name: Encrypt device
+  become: true
+  shell: >
+    cryptsetup luksFormat {{ root_partition }} --type luks2 --force-password
+    --cipher=aes-xts-plain64 --key-size=512 --use-random
+  args:
+    stdin: '{{ luks_password }}'
+    executable: /bin/bash
+  when: luks_password is not none
+
+- name: Open encrypted device
+  become: true
+  shell: cryptsetup open {{ root_partition }} root --type luks --allow-discards
+  args:
+    stdin: '{{ luks_password }}'
+    executable: /bin/bash
+  when: luks_password is not none
+
 - name: Format ROOT partition
   become: true
-  command: mkfs.ext4 -L ROOT {{ root_partition }}
+  command: mkfs.ext4 -L ROOT {{ root_device }}

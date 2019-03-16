@@ -1,8 +1,14 @@
 ---
 - name: Find root disk id
   become: true
-  command: blkid -o value -s UUID {{ root_partition }}
+  command: blkid -o value -s UUID {{ root_device }}
   register: root_disk_id
+
+- name: Find encrypted root id
+  become: true
+  command: blkid -o value -s UUID {{ root_partition }}
+  register: encrypted_disk_id
+  when: luks_password is not none
 
 - name: Find EFI disk id
   become: true
@@ -25,7 +31,9 @@
     dest: '/mnt/{{ item.path }}'
     mode:  preserve
   with_filetree: templates/
-  when: item.state == 'file'
+  when:
+    - item.state == 'file'
+    - luks_password or item.path != 'etc/crypttab.initramfs'
 
 - name: Configure /etc/mkinitcpio.conf
   become: true
