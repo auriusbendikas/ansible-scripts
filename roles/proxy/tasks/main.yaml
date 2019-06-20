@@ -1,0 +1,13 @@
+---
+
+- name: Run tasks that needs to run when proxy is enabled.
+  include_tasks: enable.yaml
+  when:
+    - proxy_enabled is defined
+    - proxy_enabled | bool
+
+- name: Run tasks that needs to run when proxy is disabled.
+  include_tasks: disable.yaml
+  when:
+    - proxy_enabled is defined
+    - not proxy_enabled | bool

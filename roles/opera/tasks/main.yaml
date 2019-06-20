@@ -1,0 +1,14 @@
+---
+- name: Install opera
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    opera
+    opera-ffmpeg-codecs
+  args:
+    warn: false
+
+- name: Configure initial opera settings
+  copy:
+    src: user_home/
+    dest: '~'

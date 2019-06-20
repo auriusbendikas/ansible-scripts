@@ -1,14 +1,14 @@
 ---
 - name: Install necessary packages
   become: true
-  pacman:
-    update_cache: yes
-    state: latest
-    name:
-      - xorg
-      - xorg-apps
-      - xorg-fonts
-      - xf86-input-keyboard
-      - xf86-input-mouse
-      - xf86-input-libinput
-      - xf86-video-intel
+  command: >
+    pacman --noconfirm --sync
+    xorg
+    xorg-apps
+    xorg-fonts
+    xf86-input-keyboard
+    xf86-input-mouse
+    xf86-input-libinput
+    xf86-video-intel
+  args:
+    warn: false

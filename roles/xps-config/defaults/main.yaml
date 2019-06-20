@@ -1,4 +1,0 @@
----
-efi_device: /dev/sda
-efi_partition_number: 1
-encrypted_device_name: root

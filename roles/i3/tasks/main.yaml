@@ -1,39 +1,124 @@
 ---
 - name: Install necessary packages
   become: true
-  pacman:
-    state: latest
-    name:
-      - xorg-server
-      - i3-wm
-      - lightdm
-
-- name: Install necessary AUR packages 
-  become: true
   command: >
-    pikaur --noconfirm -S
+    pacman --noconfirm --sync
+    xorg-server
+    xorg-xprop
+    xorg-xrandr
+    xorg-xrdb
+    xorg-xset
+    xorg-xsetroot
+    i3-wm
+    i3status
+    dex
+    rofi
+    lightdm
+    numlockx
+    ttf-ubuntu-font-family
+    ttf-dejavu
+    gnome-themes-extra
+    thunar
+    thunar-archive-plugin
+    thunar-media-tags-plugin
+    thunar-volman
+    xarchiver
+    p7zip
+    gvfs
+  args:
+    warn: false
+
+- name: Install necessary AUR packages
+  command: >
+    pikaur --noconfirm --sync
     lightdm-slick-greeter
+    plymouth
+    roxterm
+
+- import_tasks: lightdm-plymouth.yaml
+
+- name: Create templated configuration direcories of the user environment
+  file:
+    path: '~/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/user_home
+  when: item.state == 'directory'
+
+- name: Create templated configurations of the user environment
+  template:
+    src: '{{ item.src }}'
+    dest: '~/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/user_home
+  when: item.state == 'file'
+
+- name: Create templated configuration direcories
+  become: true
+  file:
+    path: '/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'directory' and not item.path.startswith('user_home')
 
 - name: Create templated configurations
   become: true
   template:
     src: '{{ item.src }}'
     dest: '/{{ item.path }}'
+    mode: '{{ item.mode }}'
   with_filetree: templates/
-  when: item.state == 'file'
+  when: item.state == 'file' and not item.path.startswith('user_home')
 
-- name: Enable lightdm-plymouth service
-  become: true
-  systemd:
-    name: lightdm-plymouth
-    enabled: true
-
-
-- name: Configure /etc/lightdm/lightdm.conf
+- name: Map Caps Lock key to XF86Terminal
   become: true
   lineinfile:
-    path: /etc/lightdm/lightdm.conf
+    path: /usr/share/X11/xkb/symbols/pc
+    regexp: 'key <{{ item.key | regex_escape() }}>'
+    insertafter: 'key <CAPS>'
+    line: "    key <{{ item.key }}> {\t[ {{ item.value }}\t\t]\t};"
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      CAPS: XF86Terminal
+      AB11: XF86Terminal
+
+- name: Configure /etc/environment for high DPI scaling
+  become: true
+  lineinfile:
+    path: /etc/environment
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      GDK_SCALE: '{{ (dpi/96) | round(0, "ceil") | int }}'
+      GDK_DPI_SCALE: '{{ 1 / ((dpi/96) | round(0, "ceil")) }}'
+      QT_AUTO_SCREEN_SCALE_FACTOR: 1
+  when: dpi > 96
+
+- name: Configure rest of /etc/environment
+  become: true
+  lineinfile:
+    path: /etc/environment
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      QT_STYLE_OVERRIDE: adwaita
+
+- name: Configure /etc/systemd/logind.conf
+  become: true
+  lineinfile:
+    path: /etc/systemd/logind.conf
     regexp: '^#?{{ item.key | regex_escape() }}='
     line: '{{ item.key }}={{ item.value }}'
-  with_dict:
-    greeter-session: lightdm-slick-greeter
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      KillUserProcesses: 'yes'
+      HandlePowerKey: ignore
+      HandleSuspendKey: suspend
+      HandleHibernateKey: ignore

@@ -1,0 +1,14 @@
+---
+- name: Install firefox-developer-edition
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    firefox-developer-edition
+  args:
+    warn: false
+
+- name: Configure initial firefox-developer-edition settings
+  become: true
+  copy:
+    src: etc/
+    dest: /etc

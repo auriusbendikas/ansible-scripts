@@ -1,0 +1,15 @@
+---
+- name: Install bluetooth suport
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    blueman
+    pulseaudio-bluetooth
+  args:
+    warn: false
+
+- name: Enable bluetooth service
+  become: true
+  command: systemctl enable bluetooth.service
+  args:
+    warn: false

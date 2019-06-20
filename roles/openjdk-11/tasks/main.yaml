@@ -1,0 +1,11 @@
+---
+- name: Install Open JDK 11
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    jdk11-openjdk
+    openjdk11-src
+    openjdk11-doc
+    visualvm
+  args:
+    warn: false

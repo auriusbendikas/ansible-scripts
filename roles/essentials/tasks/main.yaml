@@ -1,7 +1,0 @@
----
-- name: Install essential packages
-  become: true
-  pacman:
-    state: latest
-    name:
-      - bash-completion

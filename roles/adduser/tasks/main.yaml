@@ -1,40 +1,6 @@
 ---
-- name: Install sudo
-  become: true
-  pacman:
-    state: latest
-    name: sudo
-
-- name: Add no passrwod sudo for user {{ user_name }}
-  become: true
-  copy:
-    content: "%wheel ALL=(ALL) {{ 'NOPASSWD:' if not user_sudo_with_password }} ALL\n"
-    dest: /etc/sudoers.d/wheel
-
-- name: Create group {{ user_group }}
-  become: true
-  group:
-    name: '{{ user_group }}'
-    gid: '{{ user_gid }}'
-    state: present
-
 - name: Create user {{ user_name }}
   become: true
-  user:
-    name: '{{ user_name }}'
-    password: '{{ user_password | password_hash("sha512", "mysecretsalt") }}'
-    uid: '{{ user_uid }}'
-    comment: '{{ user_full_name }}'
-    group: '{{ user_group }}'
-    shell: /bin/bash
-    groups:
-      - users
-      - wheel
-      - storage
-      - input
-      - kvm
-    state: present
-
-- name: Lock root account
-  become: true
-  command: passwd -l root
+  command: "{{ bash_executable }} -ec '{{ lookup('template', 'adduser.sh') }}'"
+  args:
+    warn: false

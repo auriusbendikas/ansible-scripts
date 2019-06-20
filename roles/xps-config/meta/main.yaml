@@ -1,4 +1,0 @@
----
-dependencies:
-  - role: pikaur
-  - role: create-efi-keys

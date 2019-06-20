@@ -1,0 +1,63 @@
+---
+- name: Install git packages
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    tk
+    git
+    libxslt
+    aspell-en
+  args:
+    warn: false
+
+- name: Install git extending AUR packages
+  command: >
+    pikaur --noconfirm --sync
+    p4v
+    bash-git-prompt
+
+- name: Create templated configuration direcories of the user environment
+  file:
+    path: '~/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/user_home
+  when: item.state == 'directory'
+
+- name: Create templated configurations of the user environment
+  template:
+    src: '{{ item.src }}'
+    dest: '~/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/user_home
+  when: item.state == 'file'
+
+- name: Create templated configuration direcories
+  become: true
+  file:
+    path: '/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'directory' and not item.path.startswith('user_home')
+
+- name: Create templated configurations
+  become: true
+  template:
+    src: '{{ item.src }}'
+    dest: '/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'file' and not item.path.startswith('user_home')
+
+- name: Check if ~/.ssh/id_rsa exists
+  stat:
+    path: ~/.ssh/id_rsa
+  register: ssh_id_rsa_file
+
+- name: Set correct permissions on id_rsa
+  file:
+    path: ~/.ssh/id_rsa
+    state: touch
+    mode: 0600
+  when: ssh_id_rsa_file.stat.exists

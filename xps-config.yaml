@@ -1,7 +1,26 @@
 ---
-- hosts: all
+- hosts: localhost
   roles:
-    - essentials
-    - xps-config
-    - adduser
+    - upgrade
+    - sublime-text
+    - git
     - i3
+    - gebaar
+    - firefox-developer-edition
+    - chromium
+    - sound
+    - bluetooth
+    - sbupdate
+    - install
+  vars:
+    partition_block_device: /dev/sda
+    partition_efi_number: 1
+    git_user: Firstname Lastname
+    git_mail: adress@domain.com
+    dpi: 192
+    install_pacman_packages:
+      - xss-lock
+      - i3lock
+      - keepassxc
+    install_pikaur_packages:
+      - odrive-bin

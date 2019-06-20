@@ -1,8 +1,9 @@
 ---
-block_device: /dev/sda
-efi_partition_size: 256M
-efi_partition_number: 1
-root_partition_number: 2
-luks_password:
-video_driver: i915
-hostname: testhost
+partition_block_device: /dev/sda
+partition_efi_number: 1
+partition_efi_size: 256M
+partition_root_number: 2
+partition_root_password:
+bootloader_video_driver: i915
+chroot_extra_packages: 
+chroot_hostname: testhost

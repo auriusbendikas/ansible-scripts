@@ -1,0 +1,36 @@
+---
+- name: Install pikaur dependencies
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    base-devel
+    pyalpm
+    asp
+  args:
+    warn: false
+
+- name: Clone pikaur GIT repository to /tmp/pikaur
+  git:
+    repo: https://aur.archlinux.org/pikaur.git
+    dest: /tmp/pikaur
+    force: true
+
+- name: Build pikaur
+  environment:
+    HOME: /tmp/pikaur
+  shell: |
+    cd /tmp/pikaur
+    makepkg -fcr
+  args:
+    executable: /bin/bash
+
+- name: Install pikaur
+  become: true
+  shell: pacman --noconfirm -U /tmp/pikaur/pikaur*.pkg.tar.xz
+  args:
+    executable: /bin/bash
+
+- name: Remove /tmp/pikaur
+  file:
+    path: /tmp/pikaur
+    state: absent

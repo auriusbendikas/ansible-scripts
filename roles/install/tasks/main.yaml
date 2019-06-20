@@ -1,0 +1,15 @@
+---
+- name: Install {{ install_pacman_packages | default('nothing', true) }}
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    {{ install_pacman_packages | join(' ') }}
+  args:
+    warn: false
+  when: install_pacman_packages is iterable
+
+- name: Install {{ install_pikaur_packages | default('nothing', true) }}
+  command: >
+    pikaur --noconfirm --sync
+    {{ install_pikaur_packages | join(' ') }}
+  when: install_pikaur_packages is iterable

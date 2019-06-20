@@ -4,6 +4,3 @@ all:
     localhost:
       ansible_connection: local
       ansible_host: localhost
-    chroot:
-      ansible_connection: chroot
-      ansible_host: /mnt

@@ -1,0 +1,11 @@
+---
+- name: Install pulse audio
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    pasystray
+    paprefs
+    pavucontrol
+    pulseaudio
+  args:
+    warn: false

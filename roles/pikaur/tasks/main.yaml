@@ -1,52 +1,10 @@
 ---
-- name: Expand installation ISO root filesystem
-  become: true
-  command: mount -o remount,size=512M /run/archiso/cowspace
-  args:
-    warn: false
-    removes: /run/archiso/cowspace
-
-- name: Install {{ role_name }} dependencies
-  become: true
-  pacman:
-    state: latest
-    name:
-      - base-devel
-      - pyalpm
-      - asp
-
-- name: Creates {{ ansible_tmp_dir }}
-  become: true
-  command: runuser -u {{ build_user }} -- mkdir -p {{ ansible_tmp_dir }}
-
-- name: Clone {{ role_name }} GIT repository to {{ aur_clone_dir }}
-  become: true
-  become_user: '{{ build_user }}'
-  git:
-    repo: https://aur.archlinux.org/{{ role_name }}.git
-    dest: '{{ aur_clone_dir }}'
-    force: true
-
-- name: Build {{ role_name }}
-  become: true
-  become_user: '{{ build_user }}'
-  become_flags: '--set-home'
-  environment:
-    HOME: '{{ ansible_tmp_dir }}'
-  shell: |
-    cd {{ aur_clone_dir }}
-    makepkg -cr
+- name: Check whether pikaur is installed and on system path 
+  shell: command -v pikaur
   args:
     executable: /bin/bash
+  register: pikaur_installed
+  failed_when: false
 
-- name: Install {{ role_name }}
-  become: true
-  shell: pacman --noconfirm -U {{ aur_clone_dir }}/{{ role_name }}*.pkg.tar.xz
-  args:
-    executable: /bin/bash
-
-- name: Remove {{ aur_clone_dir }}
-  become: true
-  file:
-    path: '{{ aur_clone_dir }}'
-    state: absent
+- include_tasks: install.yaml
+  when: pikaur_installed.rc != 0

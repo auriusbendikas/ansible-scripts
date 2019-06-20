@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Gebaard
+Comment=Gebaar - WM Independent Touchpad Gesture Daemon for libinput
+Icon=input-touchpad
+Exec=/usr/bin/gebaard
+Terminal=false
+Type=Application
+NoDisplay=true
+OnlyShowIn=i3;

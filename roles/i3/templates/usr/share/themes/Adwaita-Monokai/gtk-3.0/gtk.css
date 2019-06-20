@@ -1,0 +1,161 @@
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+
+@define-color current_line_highlight #30312d;
+/* GTK NAMED COLORS
+ *
+ * widget text/foreground color
+ */
+@define-color theme_fg_color #f8f8f2;
+/*
+ * text color for entries, views and content in general
+ */
+/* @define-color theme_text_color white; */
+/*
+ * widget base background color */
+/* @define-color theme_bg_color #353535; */
+/*
+ * text widgets and the like base background color
+ */
+@define-color theme_base_color #282923;
+/*
+ * base background color of selections
+ */
+@define-color theme_selected_bg_color #48473d;
+/*
+ * text/foreground color of selections
+ */
+@define-color theme_selected_fg_color @theme_fg_color;
+/*
+ * base background color of insensitive widgets
+ */
+/* @define-color insensitive_bg_color #323232; */
+/*
+ * text foreground color of insensitive widgets
+ */
+@define-color insensitive_fg_color #9b9b9a;
+/*
+ * insensitive text widgets and the like base background color
+ */
+@define-color insensitive_base_color @theme_base_color;
+/*
+ * widget text/foreground color on backdrop windows
+ */
+@define-color theme_unfocused_fg_color @insensitive_fg_color;
+/*
+ * text color for entries, views and content in general on backdrop windows
+ */
+/* @define-color theme_unfocused_text_color white; */
+/*
+ * widget base background color on backdrop windows
+ */
+/* @define-color theme_unfocused_bg_color #353535; */
+/*
+ * text widgets and the like base background color on backdrop windows
+ */
+/* @define-color theme_unfocused_base_color #303030; */
+/*
+ * base background color of selections on backdrop windows
+ */
+@define-color theme_unfocused_selected_bg_color @theme_selected_bg_color;
+/*
+ * text/foreground color of selections on backdrop windows
+ */
+@define-color theme_unfocused_selected_fg_color @theme_fg_color;
+/*
+ * insensitive color on backdrop windows
+ */
+/* @define-color unfocused_insensitive_color #5b5b5b; */
+/*
+ * widgets main borders color
+ */
+/* @define-color borders #1b1b1b; */
+/*
+ * widgets main borders color on backdrop windows
+ */
+/* @define-color unfocused_borders #202020; */
+/*
+ * these are pretty self explicative
+ */
+/* @define-color warning_color #f57900; */
+/* @define-color error_color #cc0000; */
+/* @define-color success_color #26ab62; */
+/*
+ * these colors are exported for the window manager and shouldn't be used in applications,
+ * read if you used those and something break with a version upgrade you're on your own...
+ */
+@define-color wm_title shade(@theme_fg_color, 1.8);
+@define-color wm_unfocused_title @insensitive_fg_color;
+/* @define-color wm_highlight rgba(0, 0, 0, 0); */
+/* @define-color wm_borders_edge rgba(238, 238, 236, 0.07); */
+/* @define-color wm_bg_a shade(#353535, 1.2); */
+/* @define-color wm_bg_b #353535; */
+/* @define-color wm_shadow alpha(black, 0.35); */
+/* @define-color wm_border alpha(black, 0.18); */
+/* @define-color wm_button_hover_color_a shade(#353535, 1.3); */
+/* @define-color wm_button_hover_color_b #353535; */
+/* @define-color wm_button_active_color_a shade(#353535, 0.85); */
+/* @define-color wm_button_active_color_b shade(#353535, 0.89); */
+/* @define-color wm_button_active_color_c shade(#353535, 0.9); */
+@define-color content_view_bg @theme_base_color;
+
+* { padding: 0; -gtk-secondary-caret-color: @theme_selected_bg_color; }
+
+.gtkstyle-fallback:selected { color: #ffffff; background-color: @theme_selected_bg_color; }
+
+.content-view .tile:active, .content-view .tile:selected { background-color: @theme_selected_bg_color; }
+
+label selection { background-color: @theme_selected_bg_color; color: #ffffff; }
+
+spinbutton:focus:not(.vertical), spinbutton.vertical text:focus, entry:focus { box-shadow: inset 0 0 0 1px @theme_selected_bg_color; }
+
+spinbutton:not(.vertical) > image:active, spinbutton.vertical text > image:active, entry > image:active { color: @theme_selected_bg_color; }
+
+.osd spinbutton:focus:not(.vertical), .osd spinbutton.vertical text:focus, spinbutton.vertical .osd text:focus, .osd entry:focus { border-color: @theme_selected_bg_color; box-shadow: inset 0 0 0 1px @theme_selected_bg_color; }
+
+treeview entry.flat:focus, treeview entry:focus { border-color: @theme_selected_bg_color; }
+
+.selection-mode button.titlebutton, button.suggested-action.flat { color: @theme_selected_bg_color; }
+
+.selection-mode button.titlebutton:backdrop, button.suggested-action:backdrop, button.suggested-action.flat:backdrop {  background-image: image(@theme_selected_bg_color); }
+
+.osd button.suggested-action:active:backdrop, .osd button.suggested-action:active, .osd button.suggested-action:checked:backdrop, .osd button.suggested-action:checked { background-image: image(@theme_selected_bg_color); }
+
+.selection-mode .titlebar:backdrop:not(headerbar), .selection-mode.titlebar:backdrop:not(headerbar), .selection-mode headerbar:backdrop, headerbar.selection-mode:backdrop { background-color: @theme_selected_bg_color; }
+
+.selection-mode .titlebar:not(headerbar) button:backdrop.flat, .selection-mode .titlebar:not(headerbar) button:backdrop, .selection-mode.titlebar:not(headerbar) button:backdrop.flat, .selection-mode.titlebar:not(headerbar) button:backdrop, .selection-mode headerbar button:backdrop.flat, .selection-mode headerbar button:backdrop, headerbar.selection-mode button:backdrop.flat, headerbar.selection-mode button:backdrop { background-image: image(@theme_selected_bg_color); }
+
+treeview.view button.dnd:active, treeview.view button.dnd:selected, treeview.view button.dnd:hover, treeview.view button.dnd, treeview.view header.button.dnd:active, treeview.view header.button.dnd:selected, treeview.view header.button.dnd:hover, treeview.view header.button.dnd { background-color: @theme_selected_bg_color; }
+
+treeview.view acceleditor > label { background-color: @theme_selected_bg_color; }
+
+menubar > menuitem:hover, .menubar > menuitem:hover { box-shadow: inset 0 -3px @theme_selected_bg_color; color: #3584e4; }
+
+menu menuitem:hover, .menu menuitem:hover, .context-menu menuitem:hover { background-color: @theme_selected_bg_color; }
+
+notebook box > header.top > tabs > tab:checked { box-shadow: inset 0 -3px @theme_selected_bg_color; }
+
+notebook box > header.bottom > tabs > tab:checked { box-shadow: inset 0 3px @theme_selected_bg_color; }
+
+notebook box > header.left > tabs > tab:checked { box-shadow: inset -3px 0 @theme_selected_bg_color; }
+
+notebook box > header.right > tabs > tab:checked { box-shadow: inset 3px 0 @theme_selected_bg_color; }
+
+switch:checked { background-color: @theme_selected_bg_color; }
+
+switch:backdrop:checked { background-color: @theme_selected_bg_color; }
+
+levelbar block.high, levelbar block:not(.empty) { border-color: @theme_selected_bg_color; background-color: @theme_selected_bg_color; }
+
+levelbar block.high:backdrop, levelbar block:not(.empty):backdrop { border-color: @theme_selected_bg_color; }
+
+row.activatable:selected:backdrop { background-color: @theme_selected_bg_color; }
+
+placessidebar row.sidebar-new-bookmark-row { color: @theme_selected_bg_color; }
+
+paned > separator:selected { background-image: image(@theme_selected_bg_color); }
+
+.view:selected:focus, .view:selected, iconview:selected, textview > text:selected, textview > text selection:focus, textview > text selection, flowbox flowboxchild:selected, spinbutton:not(.vertical) selection, spinbutton.vertical text selection, entry selection, modelbutton.flat:selected, .menuitem.button.flat:selected, treeview.view:selected:focus, treeview.view:selected, row:selected, calendar:selected { background-color: @theme_selected_bg_color; }
+
+button.emoji-section:checked { border-color: @theme_selected_bg_color; }
+
+popover.emoji-picker .emoji :hover { background: @theme_selected_bg_color; }

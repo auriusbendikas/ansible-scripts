@@ -2,11 +2,8 @@
 - hosts: localhost
   gather_facts: false
   roles:
-    - partition
+    - network
   vars:
     block_device: /dev/sda
-    video_driver: vboxvideo
-    hostname: testhost
-    user_name: aurius
-    user_password: test
-    user_full_name: Aurius Bendikas Chang
+    bootloader_video_driver: vboxvideo
+    chroot_hostname: testhost

@@ -1,0 +1,6 @@
+[
+    { "keys": ["ctrl+shift+q"], "command": "exit" },
+    { "keys": ["ctrl+q"], "command": "close" },
+    { "keys": ["ctrl+]"], "command": "next_view" },
+    { "keys": ["ctrl+["], "command": "prev_view" },
+]

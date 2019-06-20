@@ -1,0 +1,11 @@
+---
+- name: Install latest Open JDK
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    jdk-openjdk
+    openjdk-src
+    openjdk-doc
+    visualvm
+  args:
+    warn: false

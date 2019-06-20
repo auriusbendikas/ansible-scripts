@@ -1,0 +1,46 @@
+---
+- name: Install gnome-keyring packages
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    seahorse
+  args:
+    warn: false
+
+- name: Configure auth section of /etc/pam.d/login
+  become: true
+  lineinfile:
+    path: /etc/pam.d/login
+    insertafter: '^auth'
+    regexp: '^auth.+pam_gnome_keyring.so'
+    line: 'auth       optional     pam_gnome_keyring.so'
+
+- name: Configure session section of /etc/pam.d/login
+  become: true
+  lineinfile:
+    path: /etc/pam.d/login
+    insertafter: '^session'
+    regexp: '^session.+pam_gnome_keyring.so auto_start'
+    line: 'session    optional     pam_gnome_keyring.so auto_start'
+
+- name: Configure password section of /etc/pam.d/passwd
+  become: true
+  lineinfile:
+    path: /etc/pam.d/passwd
+    insertafter: '^password'
+    regexp: '^password.+pam_gnome_keyring.so'
+    line: "password\toptional\tpam_gnome_keyring.so"
+
+- name: Configure SSH_AUTH_SOCK variable in /etc/security/pam_env.conf
+  become: true
+  lineinfile:
+    path: /etc/security/pam_env.conf
+    regexp: 'SSH_AUTH_SOCK'
+    line: "SSH_AUTH_SOCK\tDEFAULT=\"${XDG_RUNTIME_DIR}/keyring/ssh\""
+
+- name: Add SUDO_ASKPASS to /etc/environment
+  become: true
+  lineinfile:
+    path: /etc/environment
+    regexp: '^SUDO_ASKPASS='
+    line: 'SUDO_ASKPASS=/usr/lib/seahorse/ssh-askpass'

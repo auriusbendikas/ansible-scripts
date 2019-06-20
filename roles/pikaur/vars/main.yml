@@ -1,3 +1,0 @@
----
-ansible_tmp_dir: /tmp/.ansible-{{ build_user }}/tmp
-aur_clone_dir: '{{ ansible_tmp_dir }}/{{ role_name }}'

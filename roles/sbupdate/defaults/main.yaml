@@ -1,0 +1,3 @@
+---
+partition_block_device: /dev/sda
+partition_efi_number: 1

@@ -2,4 +2,4 @@
 # See crypttab(5) for details.
 
 # <name>       <device>                                     <password>              <options>
-root    UUID={{ encrypted_disk_id.stdout }}    none    discard
+root    UUID={{ partition_encrypted_uuid.stdout }}    none    discard

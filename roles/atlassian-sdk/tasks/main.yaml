@@ -1,0 +1,5 @@
+---
+- name: Install Atlassian SDK
+  command: >
+    pikaur --noconfirm --sync
+    atlassian-plugin-sdk

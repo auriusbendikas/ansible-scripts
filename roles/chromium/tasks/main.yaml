@@ -1,0 +1,13 @@
+---
+- name: Install chromium
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    chromium
+  args:
+    warn: false
+
+- name: Configure initial chromium settings
+  copy:
+    src: user_home/
+    dest: '~'

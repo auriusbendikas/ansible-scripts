@@ -1,7 +1,7 @@
 ---
 - name: Mount ROOT partition
   become: true
-  command: mount {{ root_device }} /mnt
+  command: mount {{ partition_root_alias }} /mnt
   args:
     warn: false
 
@@ -13,7 +13,7 @@
 
 - name: Mount EFI
   become: true
-  command: mount {{ efi_partition }} /mnt/boot/efi
+  command: mount {{ partition_efi_device }} /mnt/boot/efi
   args:
     warn: false
 
@@ -71,6 +71,7 @@
     util-linux
     vi
     which
+    {{ chroot_extra_packages }}
 
 - name: Execute systemd-firstboot on chroot (Setup default configurations)
   become: true
@@ -81,8 +82,24 @@
     --locale-messages=en_US.UTF-8
     --keymap=us
     --timezone=Europe/Stockholm
-    --hostname={{ hostname }}
+    --hostname={{ chroot_hostname }}
     --setup-machine-id
+
+- name: Check if /mnt/usr/share/kbd/consolefonts/ter-132b.psf.gz exists
+  stat:
+    path: /mnt/usr/share/kbd/consolefonts/ter-132b.psf.gz
+  register: highdpi_console_font
+
+- name: Add high DPI console font to /etc/vconsole.conf
+  become: true
+  lineinfile:
+    path: /mnt/etc/vconsole.conf
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict:
+    FONT: ter-132b
+    FONT_MAP: 8859-1
+  when: highdpi_console_font.stat.exists
 
 - name: Execute systemd-sysusers on chroot (Install default Arch Linux users and groups)
   become: true

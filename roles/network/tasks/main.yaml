@@ -1,11 +1,6 @@
 ---
-- name: Install network packages
+- name: Install and configure network-manager
   become: true
-  pacman:
-    state: latest
-    name:
-      - networkmanager
-
-- name: Enable network service
-  become: true
-  command: systemctl enable NetworkManager
+  command: "{{ bash_executable }} -ec '{{ lookup('template', 'network.sh') }}'"
+  args:
+    warn: false

@@ -1,14 +1,53 @@
 ---
-- name: Install network packages
+- name: Remove virtualbox-guest-utils-nox
   become: true
-  pacman:
-    state: latest
-    name:
-      - virtualbox-guest-utils
-      - virtualbox-guest-dkms
+  command: >
+    pacman --noconfirm --remove --recursive
+    virtualbox-guest-utils-nox
+  args:
+    warn: false
+  failed_when: false
+
+- name: Install full virtualbox guest additions packages
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    linux-lts-headers
+    virtualbox-guest-utils
+    virtualbox-guest-dkms
+    proxytunnel
+  args:
+    warn: false
+
+- name: Create templated configuration direcories
+  become: true
+  file:
+    path: '/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'directory' and not item.path.startswith('user_home')
+
+- name: Create templated configurations
+  become: true
+  template:
+    src: '{{ item.src }}'
+    dest: '/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'file' and not item.path.startswith('user_home')
 
 - name: Enable VirtualBox service
   become: true
   systemd:
     name: vboxservice
     enabled: true
+
+- name: Configure /etc/lightdm/lightdm.conf
+  become: true
+  lineinfile:
+    path: /etc/lightdm/lightdm.conf
+    regexp: '^#?{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict:
+    display-setup-script: /usr/bin/VBoxClient-all

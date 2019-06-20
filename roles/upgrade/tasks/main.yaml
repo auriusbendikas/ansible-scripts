@@ -1,0 +1,9 @@
+---
+- name: Upgrade pacman packages
+  become: true
+  command: pacman --sync --refresh --sysupgrade --noconfirm
+  args:
+    warn: false
+
+- name: Upgrade AUR packages
+  command: pikaur --sync --refresh --sysupgrade --noconfirm

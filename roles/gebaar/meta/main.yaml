@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: pikaur
+  - role: i3

@@ -1,0 +1,39 @@
+---
+- name: Install git extending AUR packages
+  command: >
+    pikaur --noconfirm --sync
+    gebaar
+
+- name: Create templated configuration direcories of the user environment
+  file:
+    path: '~/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/user_home
+  when: item.state == 'directory'
+
+- name: Create templated configurations of the user environment
+  template:
+    src: '{{ item.src }}'
+    dest: '~/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/user_home
+  when: item.state == 'file'
+
+- name: Create templated configuration direcories
+  become: true
+  file:
+    path: '/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'directory' and not item.path.startswith('user_home')
+
+- name: Create templated configurations
+  become: true
+  template:
+    src: '{{ item.src }}'
+    dest: '/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'file' and not item.path.startswith('user_home')

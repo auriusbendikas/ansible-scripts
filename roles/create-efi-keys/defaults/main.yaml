@@ -1,8 +1,7 @@
 ---
-user_full_name: Aurius Bendikas Chang
-efi_keys_root: /
-efi_keys_location: '{{ efi_keys_root }}root/secure-boot'
-efi_guid_txt: '{{ efi_keys_location }}/GUID.txt'
+user_fullname: Firstname Lastname
+efi_keys_location: /root/secure-boot
+efi_guid_file: '{{ efi_keys_location }}/GUID.txt'
 efi_platform_key: '{{ efi_keys_location }}/PK.key'
 efi_platform_crt: '{{ efi_keys_location }}/PK.crt'
 efi_platform_cer: '{{ efi_keys_location }}/PK.cer'

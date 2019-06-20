@@ -1,0 +1,9 @@
+[X-GNOME-Metatheme]
+Name=Adwaita-Monokai
+Type=X-GNOME-Metatheme
+Comment=Adwaita dark theme with Monokai color sheme
+Encoding=UTF-8
+GtkTheme=Adwaita-Monokai
+IconTheme=HighContrast
+CursorTheme=Adwaita
+CursorSize=24

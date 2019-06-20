@@ -1,0 +1,81 @@
+---
+- name: Configure /etc/mkinitcpio.conf
+  become: true
+  lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)
+
+- name: Configure /etc/plymouth/plymouthd.conf
+  become: true
+  lineinfile:
+    path: /etc/plymouth/plymouthd.conf
+    regexp: 'ShowDelay='
+    line: 'ShowDelay=0'
+
+- name: Set plymouth theme and regenerate initrd image
+  become: true
+  command: plymouth-set-default-theme --rebuild-initrd spinfinity
+
+- name: Check if sbupdate is installed
+  stat:
+    path: /bin/sbupdate
+  register: sbupdate
+
+- name: Run sbupdate
+  become: true
+  command: sbupdate
+  when: sbupdate.stat.exists
+
+- name: Check if /usr/bin/generate-efi-image is installed
+  stat:
+    path: /usr/bin/generate-efi-image
+  register: generate_efi_image
+
+- name: Run /usr/bin/generate-efi-image
+  become: true
+  command: /usr/bin/generate-efi-image
+  when: generate_efi_image.stat.exists
+
+- name: Enable lightdm-plymouth service
+  become: true
+  systemd:
+    name: lightdm-plymouth
+    enabled: true
+
+- name: Configure /etc/lightdm/users.conf
+  become: true
+  lineinfile:
+    path: /etc/lightdm/users.conf
+    regexp: '^#?{{ "hidden-shells" | regex_escape() }}='
+    line: 'hidden-shells=/bin/false /usr/bin/nologin /sbin/nologin'
+
+- name: Copy a /usr/share/xgreeters/lightdm-slick-greeter.desktop to .../lightdm-slick-greeter-no-scale.desktop
+  become: true
+  copy:
+    src: /usr/share/xgreeters/lightdm-slick-greeter.desktop
+    dest: /usr/share/xgreeters/lightdm-slick-greeter-no-scale.desktop
+    remote_src: true
+    force: true
+
+- name: Disable GDK_SCALE on /usr/share/xgreeters/lightdm-slick-greeter-no-scale.desktop
+  become: true
+  lineinfile:
+    path: /usr/share/xgreeters/lightdm-slick-greeter-no-scale.desktop
+    regexp: '^Exec='
+    line: 'Exec=env --unset=GDK_SCALE --unset=GDK_DPI_SCALE slick-greeter'
+
+- name: Configure /etc/lightdm/lightdm.conf
+  become: true
+  lineinfile:
+    path: /etc/lightdm/lightdm.conf
+    regexp: '^#?{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      greeter-session: lightdm-slick-greeter-no-scale
