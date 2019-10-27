@@ -56,7 +56,7 @@
     --create
     --label "Arch Linux"
     --disk {{ partition_block_device }}
-    --part {{ partition_efi_number }}
+    --part {{ partition_efi_number | string | regex_search('[0-9]+') }}
     --loader linux-lts-signed.efi
     --verbose
   when: efi_entry_created.rc != 0

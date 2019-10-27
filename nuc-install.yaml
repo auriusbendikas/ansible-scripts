@@ -7,14 +7,13 @@
     - network
     - adduser
   vars:
-    partition_block_device: /dev/nvme0n1
-    partition_efi_number: p1
+    partition_block_device: /dev/sda
+    partition_efi_number: 1
     partition_efi_size: 256M
-    partition_root_number: p2
+    partition_root_number: 2
     bootloader_video_driver: i915
-    partition_root_password: test
     chroot_hostname: testhost
-    chroot_extra_packages: intel-ucode xf86-video-intel terminus-font
+    chroot_extra_packages: intel-ucode xf86-video-intel
     efi_keys_location: /mnt/root/secure-boot
     user_name: test
     user_password: test

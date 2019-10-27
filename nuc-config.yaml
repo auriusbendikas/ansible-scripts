@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  roles:
+    - locale
+    - upgrade
+    - openssh
+    - docker-ce
+    - install
+  vars:
+    install_pacman_packages:
+      - htop
+      - packer
+    install_pikaur_packages:

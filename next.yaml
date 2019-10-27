@@ -1,9 +1,0 @@
----
-- hosts: localhost
-  gather_facts: false
-  roles:
-    - network
-  vars:
-    block_device: /dev/sda
-    bootloader_video_driver: vboxvideo
-    chroot_hostname: testhost

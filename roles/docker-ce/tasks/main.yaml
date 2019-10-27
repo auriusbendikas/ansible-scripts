@@ -19,3 +19,9 @@
     name: '{{ ansible_user_id }}'
     groups: docker
     append: true
+
+- name: Enable docker.service
+  become: true
+  command: systemctl enable docker.service
+  args:
+    warn: false

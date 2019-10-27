@@ -14,13 +14,15 @@
     - install
   vars:
     partition_block_device: /dev/sda
-    partition_efi_number: 1
+    partition_efi_number: p1
     git_user: Firstname Lastname
     git_mail: adress@domain.com
     dpi: 192
     install_pacman_packages:
+      - htop
       - xss-lock
       - i3lock
       - keepassxc
+      - bolt
     install_pikaur_packages:
       - odrive-bin
