@@ -24,5 +24,6 @@
       - i3lock
       - keepassxc
       - bolt
+      - noto-fonts-cjk
     install_pikaur_packages:
       - odrive-bin

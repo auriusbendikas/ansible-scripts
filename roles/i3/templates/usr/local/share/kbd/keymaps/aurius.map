@@ -1,0 +1,23 @@
+include "/usr/share/kbd/keymaps/i386/qwerty/us.map"
+keymaps 0-4,6,8,12
+strings as usual
+
+# Caps_Lock to Tab
+keycode  58 = Tab
+
+# q Q ä Ä
+keycode  16 = +q    +Q          +adiaeresis +Adiaeresis
+# w W å Å
+keycode  17 = +w    +W          +aring      +Aring
+# p P ö Ö
+keycode  25 = +p    +P          +odiaeresis +Odiaeresis
+
+keycode   2 = one   exclam      U+0105      U+0104
+keycode   3 = two   at          U+010d      U+010c
+keycode   4 = three numbersign  U+0119      U+0118
+keycode   5 = four  dollar      U+0117      U+0116
+keycode   6 = five  percent     U+012f      U+012e
+keycode   7 = six   asciicircum U+0161      U+0160
+keycode   8 = seven ampersand   U+0173      U+0172
+keycode   9 = eight asterisk    U+016b      U+016a
+keycode  13 = equal plus        U+017e      U+017d
