@@ -19,6 +19,7 @@
     git_mail: adress@domain.com
     dpi: 192
     install_pacman_packages:
+      - gvfs-mtp
       - htop
       - xss-lock
       - i3lock
