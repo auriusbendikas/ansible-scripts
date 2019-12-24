@@ -13,7 +13,7 @@
     partition_root_number: 2
     bootloader_video_driver: i915
     chroot_hostname: testhost
-    chroot_extra_packages: intel-ucode xf86-video-intel
+    chroot_extra_packages: intel-ucode
     efi_keys_location: /mnt/root/secure-boot
     user_name: test
     user_password: test

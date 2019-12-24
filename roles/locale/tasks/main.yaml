@@ -1,4 +1,12 @@
 ---
+- name: Enable en_US.UTF-8 locale
+  become: true
+  lineinfile:
+    path: /etc/locale.gen
+    regexp: '^#(en_US\.UTF-8.*)$'
+    line: '\1'
+    backrefs: true
+
 - name: Enable {{locale}} locale
   become: true
   lineinfile:

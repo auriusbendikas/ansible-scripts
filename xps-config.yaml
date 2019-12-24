@@ -11,6 +11,7 @@
     - sound
     - bluetooth
     - sbupdate
+    - steam
     - install
   vars:
     partition_block_device: /dev/sda

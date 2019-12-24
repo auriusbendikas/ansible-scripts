@@ -14,7 +14,7 @@
     bootloader_video_driver: i915
     partition_root_password: test
     chroot_hostname: testhost
-    chroot_extra_packages: intel-ucode xf86-video-intel terminus-font
+    chroot_extra_packages: intel-ucode terminus-font
     efi_keys_location: /mnt/root/secure-boot
     user_name: test
     user_password: test

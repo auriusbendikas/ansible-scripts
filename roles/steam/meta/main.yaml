@@ -1,0 +1,6 @@
+---
+dependencies:
+  - role: locale
+  - role: video
+    vars:
+      video_multilib: true

@@ -1,0 +1,35 @@
+---
+- name: Install Intel 3D and VAPI drivers
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    mesa
+    vulkan-intel
+    intel-media-driver
+  args:
+    warn: false
+
+- name: Add LIBVA_DRIVER_NAME to /etc/environment
+  become: true
+  lineinfile:
+    path: /etc/environment
+    regexp: '^LIBVA_DRIVER_NAME='
+    line: 'LIBVA_DRIVER_NAME=iHD'
+
+- name: Enable multilib in /etc/pacman.conf
+  become: true
+  replace:
+    path: /etc/pacman.conf
+    regexp: '^#(.*\[multilib\].*)\n#([^\n]+)'
+    replace: '\1\n\2'
+  when: video_multilib | bool
+
+- name: Install multilib Intel 3D and VAPI drivers
+  become: true
+  command: >
+    pacman --noconfirm --sync --refresh
+    lib32-mesa
+    lib32-vulkan-intel
+  args:
+    warn: false
+  when: video_multilib | bool

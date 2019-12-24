@@ -1,0 +1,8 @@
+---
+- name: Install steam
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    steam
+  args:
+    warn: false

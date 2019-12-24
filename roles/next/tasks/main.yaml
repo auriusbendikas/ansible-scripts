@@ -1,9 +1,0 @@
----
-- name: Configure /etc/lightdm/lightdm.conf
-  become: true
-  lineinfile:
-    path: /etc/lightdm/lightdm.conf
-    regexp: '^#?{{ item.key | regex_escape() }}='
-    line: '{{ item.key }}={{ item.value }}'
-  with_dict:
-    greeter-session: lightdm-slick-greeter
