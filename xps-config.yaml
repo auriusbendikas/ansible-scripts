@@ -19,6 +19,8 @@
     git_user: Firstname Lastname
     git_mail: adress@domain.com
     dpi: 192
+    background_color: '#000000'
+    background_image: /usr/share/pixmaps/hextille-background.svg
     install_pacman_packages:
       - gvfs-mtp
       - htop

@@ -1,5 +1,5 @@
-#!/bin/bash
-add-docker-repo-certificate() {
+#!/bin/sh
+add_docker_repo_certificate () {
   CERTS_FOLDER="/etc/docker/certs.d"
   SERVER=$1
   mkdir -p "$CERTS_FOLDER/$SERVER"

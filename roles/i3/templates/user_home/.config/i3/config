@@ -167,8 +167,11 @@ bar {
     }
 }
 
+# Start picom compositor
+exec --no-startup-id picom --use-damage --no-fading-openclose --no-fading-destroyed-argb --shadow-exclude='window_type%="*"'
+
 # Start xss-lock
-exec --no-startup-id xss-lock -- i3lock --color=000000 --ignore-empty-password --show-failed-attempts #--lock-console
+exec --no-startup-id xss-lock -- i3lock --color=000000 --ignore-empty-password --show-failed-attempts
 
 # Start gnome-keyring-daemon
 exec --no-startup-id gnome-keyring-daemon --start

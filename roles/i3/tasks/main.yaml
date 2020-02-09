@@ -8,7 +8,9 @@
     xorg-xrandr
     xorg-xrdb
     xorg-xset
-    xorg-xsetroot
+    hsetroot
+    imagemagick
+    feh
     i3-wm
     i3status
     dex
@@ -25,6 +27,7 @@
     xarchiver
     p7zip
     gvfs
+    picom
   args:
     warn: false
 

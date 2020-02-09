@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920px" height="1080px">
+    <defs>
+        <path id="line000" stroke="#ffffff" stroke-width="1" fill="none" d="M0 0h16"/>
+        <use  id="line120" xlink:href="#line000" transform="rotate(120)"/>
+        <use  id="line240" xlink:href="#line000" transform="rotate(240)"/>
+        <g id="Y-shape">
+            <use xlink:href="#line000"/>
+            <use xlink:href="#line120"/>
+            <use xlink:href="#line240"/>
+        </g>
+        <g id="grid">
+            <use xlink:href="#line000"/>
+            <use xlink:href="#line120" x="24" y="-13.856406460551"/>
+            <use xlink:href="#Y-shape" x="24" y="13.856406460551"/>
+            <use xlink:href="#Y-shape" x="48" y="0"/>
+            <use xlink:href="#line240" x="48" y="27.712812921102"/>
+        </g>
+        <pattern id="pattern" patternUnits="userSpaceOnUse" width="48" height="27.712812921102">
+            <use x="-4" y="6.928203230276" xlink:href="#grid"/>
+        </pattern>
+        <mask id="mask" x="0" y="0" width="100%" height="100%">
+            <rect width="100%" height="100%" fill="url(#pattern)"/>
+        </mask>
+        <radialGradient id="gradient" fx="50%" fy="50%" r="65%" spreadMethod="pad">
+            <stop offset="0%" stop-color="#eeaaaa" stop-opacity="1"/>
+            <stop offset="20%" stop-color="#bb5522" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+        </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="#000000"/>
+    <rect width="100%" height="100%" mask="url(#mask)" fill="url(#gradient)"/>
+</svg>
