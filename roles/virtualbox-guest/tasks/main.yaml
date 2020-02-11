@@ -15,6 +15,7 @@
     linux-lts-headers
     virtualbox-guest-utils
     virtualbox-guest-dkms
+    xf86-video-vmware
     proxytunnel
   args:
     warn: false
