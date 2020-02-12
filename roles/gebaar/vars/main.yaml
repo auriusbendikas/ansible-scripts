@@ -1,0 +1,4 @@
+---
+gebaar_autostart:
+  - comment: Start Gebaar - WM Independent Touchpad Gesture Daemon for libinput
+    executable: gebaard

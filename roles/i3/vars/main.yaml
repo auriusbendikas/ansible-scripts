@@ -1,0 +1,10 @@
+---
+i3_autostart:
+  - comment: Start picom compositor
+    executable: picom --use-damage --no-fading-openclose --no-fading-destroyed-argb --shadow-exclude='window_type%="*"'
+
+  - comment: Start Network Manager applet
+    executable: nm-applet
+
+  - comment: Start Thunar in daemon mode
+    executable: thunar --daemon

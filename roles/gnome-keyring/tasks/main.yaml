@@ -44,3 +44,7 @@
     path: /etc/environment
     regexp: '^SUDO_ASKPASS='
     line: 'SUDO_ASKPASS=/usr/lib/seahorse/ssh-askpass'
+
+- name: Augument global_autostart variable for autostart entry creation
+  set_fact:
+    global_autostart: '{{ global_autostart | default([]) + keyring_autostart }}'

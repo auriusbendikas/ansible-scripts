@@ -37,3 +37,7 @@
     mode: '{{ item.mode }}'
   with_filetree: templates/
   when: item.state == 'file' and not item.path.startswith('user_home')
+
+- name: Augument global_autostart variable for autostart entry creation
+  set_fact:
+    global_autostart: '{{ global_autostart | default([]) + gebaar_autostart }}'

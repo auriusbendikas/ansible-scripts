@@ -1,0 +1,9 @@
+---
+- name: Create templated configurations of the user environment
+  template:
+    src: '{{ item.src }}'
+    dest: '~/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/user_home
+  when: item.state == 'file'
+  

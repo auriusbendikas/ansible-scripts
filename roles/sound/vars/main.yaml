@@ -1,0 +1,7 @@
+---
+sound_autostart:
+  - comment: Start the PulseAudio sound system
+    executable: start-pulseaudio-x11
+
+  - comment: Start PulseAudio system tray applet
+    executable: pasystray

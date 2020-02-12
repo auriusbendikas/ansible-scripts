@@ -47,14 +47,6 @@
   with_filetree: templates/user_home
   when: item.state == 'directory'
 
-- name: Create templated configurations of the user environment
-  template:
-    src: '{{ item.src }}'
-    dest: '~/{{ item.path }}'
-    mode: '{{ item.mode }}'
-  with_filetree: templates/user_home
-  when: item.state == 'file'
-
 - name: Create templated configuration direcories
   become: true
   file:
@@ -124,3 +116,12 @@
       HandlePowerKey: ignore
       HandleSuspendKey: suspend
       HandleHibernateKey: ignore
+
+- name: Augument global_autostart variable for autostart entry creation
+  set_fact:
+    global_autostart: '{{ global_autostart | default([]) + i3_autostart }}'
+
+- name: Notify to create templated configurations of the user environment
+  command: echo notify
+  notify:
+    - Create templated configurations of the user environment

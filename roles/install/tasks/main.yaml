@@ -13,3 +13,7 @@
     pikaur --noconfirm --sync
     {{ install_pikaur_packages | join(' ') }}
   when: install_pikaur_packages is iterable
+
+- name: Augument global_autostart variable for autostart entry creation
+  set_fact:
+    global_autostart: '{{ global_autostart | default([]) + install_autostart }}'
