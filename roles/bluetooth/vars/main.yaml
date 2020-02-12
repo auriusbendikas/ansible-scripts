@@ -1,0 +1,4 @@
+---
+bluetooth_autostart:
+  - comment: Start Blueman applet
+    executable: blueman-applet

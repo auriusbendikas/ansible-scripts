@@ -13,3 +13,7 @@
   command: systemctl enable bluetooth.service
   args:
     warn: false
+
+- name: Augument global_autostart variable for autostart entry creation
+  set_fact:
+    global_autostart: '{{ global_autostart | default([]) + bluetooth_autostart }}'

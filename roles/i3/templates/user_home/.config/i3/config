@@ -166,18 +166,8 @@ bar {
         background #20211C
     }
 }
+{% for entry in global_autostart %}
 
-# Start picom compositor
-exec --no-startup-id picom --use-damage --no-fading-openclose --no-fading-destroyed-argb --shadow-exclude='window_type%="*"'
-
-# Start xss-lock
-exec --no-startup-id xss-lock -- i3lock --color=000000 --ignore-empty-password --show-failed-attempts
-
-# Start gnome-keyring-daemon
-exec --no-startup-id gnome-keyring-daemon --start
-
-# Start Network Manager applet
-exec --no-startup-id nm-applet
-
-# Start Thunar in daemon mode
-exec --no-startup-id thunar --daemon
+# {{ entry.comment }}
+exec --no-startup-id {{ entry.executable }}
+{% endfor %}

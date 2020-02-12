@@ -1,0 +1,4 @@
+---
+keyring_autostart:
+  - comment: Start gnome-keyring-daemon
+    executable: gnome-keyring-daemon --start
