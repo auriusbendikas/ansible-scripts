@@ -1,6 +1,7 @@
 ---
 - name: Create user {{ user_name }}
   become: true
-  command: "{{ bash_executable }} -ec '{{ lookup('template', 'adduser.sh') }}'"
+  command: '{{ bash_executable }} -xe -- /dev/stdin'
   args:
+    stdin: '{{ lookup("template", "adduser.sh") }}'
     warn: false

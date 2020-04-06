@@ -37,4 +37,4 @@
 
 - name: Format ROOT partition
   become: true
-  command: mkfs.ext4 -L ROOT {{ partition_root_alias }}
+  command: mkfs.ext4 -m 0 -L ROOT {{ partition_root_alias }}

@@ -8,7 +8,7 @@
   loop: '{{ query("dict", lines) }}'
   vars:
     lines:
-      HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)
+      HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block mdadm_udev sd-encrypt filesystems fsck)
 
 - name: Configure /etc/plymouth/plymouthd.conf
   become: true

@@ -139,24 +139,32 @@ mode "terminal" {
 }
 
 bindsym XF86Terminal mode "terminal"; workspace $ws10
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Look and feel
 default_border none
 default_floating_border normal 2
 
-for_window [instance="git-gui"] $floating_window_style
-for_window [instance="xarchiver"] $floating_window_style
-for_window [instance="keepassxc"] $floating_window_style
+for_window [class="^Git-gui$"] $floating_window_style
+for_window [class="^Xarchiver$"] $floating_window_style
+for_window [class="^KeePassXC$"] $floating_window_style
+for_window [class="^Pavucontrol$"] $floating_window_style
+for_window [class="^Steam$" title="^Steam - .+$"] $floating_window_style
 
-
-assign [instance="roxterm"] → $ws10
-assign [instance="Navigator"] → $ws1
-assign [instance="thunar"] → $ws3
-assign [instance="sublime_text"] → $ws4
-assign [instance="VirtualBox Manager"] → $ws6
-assign [instance="Steam"] → $ws6
-assign [instance="p4merge.bin"] → $ws9
-assign [instance="gitk"] → $ws9
+assign [class="^firefoxdeveloperedition$"] → $ws1
+assign [class="^Thunar$"] → $ws3
+assign [class="^Sublime_text$"] → $ws4
+assign [class="^Steam$"] → $ws6
+assign [class="^VirtualBox Manager$"] → $ws6
+assign [class="^steam_app_.+$"] → $ws7
+assign [class="^BaldursGate$"] → $ws7
+assign [class="^VirtualBox Machine$"] → $ws7
+assign [class="^VirtualBoxVM$"] → $ws7
+assign [class="^Helix Merge$"] → $ws9
+assign [class="^Gitk$"] → $ws9
+assign [class="^Roxterm$"] → $ws10
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
