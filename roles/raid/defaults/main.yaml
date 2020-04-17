@@ -1,0 +1,8 @@
+---
+raid_list:
+  - device: /dev/md/root
+    level: 0
+    chunk: 64
+    members:
+      - /dev/sda
+      - /dev/sdb

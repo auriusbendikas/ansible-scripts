@@ -1,9 +1,0 @@
-# Static information about the filesystems.
-# See fstab(5) for details.
-
-# <file system> <dir> <type> <options> <dump> <pass>
-# {{ partition_root_alias }}
-UUID={{ partition_root_uuid.stdout }}    /        ext4    rw,relatime    0 1
-
-# {{ partition_efi_device }}
-UUID={{ partition_efi_uuid.stdout }}        /boot/efi     vfat    rw,relatime,nofail,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro    0 2

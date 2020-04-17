@@ -1,0 +1,17 @@
+---
+bootloader_video_driver: i915
+bootloader_hostname: testhost
+bootloader_extra_packages:
+encryption_list: []
+raid_list: []
+bootloader_mount_list:
+  - device: /dev/sda1
+    filesystem: vfat
+    options:
+    label: UEFI
+    mount: /boot/efi
+  - device: /dev/sda2
+    filesystem: ext4
+    options:
+    label: ROOT
+    mount: /

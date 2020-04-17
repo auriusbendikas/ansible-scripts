@@ -3,19 +3,36 @@
   roles:
     - locale
     - partition
-    - create-efi-keys
+    - bootloader
     - network
     - adduser
   vars:
-    partition_block_device: /dev/sda
-    partition_efi_number: 1
-    partition_efi_size: 256M
-    partition_root_number: 2
     bootloader_video_driver: i915
-    chroot_hostname: testhost
-    chroot_extra_packages: intel-ucode
-    efi_keys_location: /mnt/root/secure-boot
+    bootloader_hostname: testhost
+    bootloader_extra_packages: intel-ucode
+    bash_executable: /usr/bin/arch-chroot /mnt /bin/bash
     user_name: test
     user_password: test
     user_fullname: Firstname Lastname
-    bash_executable: /usr/bin/arch-chroot /mnt /bin/bash
+    partition_disk_list:
+      - device: /dev/sda
+        partition:
+          - number: 1
+            size: 256M
+            typecode: EF00
+            name: UEFI
+          - number: 2
+            size: 0
+            typecode: 8304
+            name: ROOT
+    bootloader_mount_list:
+      - device: /dev/sda1
+        filesystem: vfat
+        options:
+        label: UEFI
+        mount: /boot/efi
+      - device: /dev/sda2
+        filesystem: ext4
+        options:
+        label: ROOT
+        mount: /

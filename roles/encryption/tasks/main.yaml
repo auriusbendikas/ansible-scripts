@@ -1,0 +1,23 @@
+---
+- name: Encrypt devices
+  become: true
+  command: >
+    cryptsetup luksFormat {{ item.device }}
+    --type luks2
+    --force-password
+    --cipher=aes-xts-plain64
+    --key-size=512
+    --use-random
+  args:
+    stdin: '{{ item.password }}'
+  loop: '{{ encryption_list }}'
+
+- name: Open encrypted devices
+  become: true
+  command: >
+    cryptsetup open {{ item.device }} {{ item.name }}
+    --type luks
+    --allow-discards
+  args:
+    stdin: '{{ item.password }}'
+  loop: '{{ encryption_list }}'

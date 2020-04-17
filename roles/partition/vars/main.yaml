@@ -1,4 +1,0 @@
----
-partition_efi_device: '{{ partition_block_device }}{{ partition_efi_number }}'
-partition_root_device: '{{ partition_block_device }}{{ partition_root_number }}'
-partition_root_alias: '{{ "/dev/mapper/root" if partition_root_password else partition_root_device }}'

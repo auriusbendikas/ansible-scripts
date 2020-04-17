@@ -1,0 +1,5 @@
+{% for uuid in bootloader_uuid_list.results -%}
+  {%- if uuid.item.label | default('', true) == 'ROOT' -%}
+    root=UUID={{ uuid.stdout }} quiet splash
+  {%- endif -%}
+{%- endfor %}

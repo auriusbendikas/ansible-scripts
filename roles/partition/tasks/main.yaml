@@ -1,4 +1,14 @@
 ---
-- import_tasks: create-partitions.yaml
-- import_tasks: install-chroot.yaml
-- import_tasks: install-bootloader.yaml
+- name: Create partitions
+  become: true
+  command: >
+    sgdisk
+    --zap-all
+    {% for partition in item.partition %}
+      --new={{ partition.number }}:0:+{{ partition.size }}
+      --typecode={{ partition.number }}:{{ partition.typecode }}
+      --change-name={{ partition.number }}:{{ partition.name }}
+    {% endfor %}
+    --print
+    {{ item.device }}
+  loop: '{{ partition_disk_list }}'

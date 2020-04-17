@@ -1,0 +1,5 @@
+---
+encryption_list:
+  - device: /dev/sda
+    name: root
+    password: test

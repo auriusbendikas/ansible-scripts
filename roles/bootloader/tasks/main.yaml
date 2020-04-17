@@ -1,0 +1,3 @@
+---
+- import_tasks: install-chroot.yaml
+- import_tasks: install-bootloader.yaml

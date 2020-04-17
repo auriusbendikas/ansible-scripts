@@ -1,0 +1,9 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+{% for item in bootloader_mount_list %}
+
+# {{ item.device }}
+UUID={{ bootloader_uuid_list.results | selectattr('item.device', '==', item.device) | map(attribute='stdout') | first }} {{ item.mount }} {{ item.filesystem }} {{ mount_options[item.filesystem] }} 0 {{ 1 if item.label == 'ROOT' else 2 }}
+{% endfor %}

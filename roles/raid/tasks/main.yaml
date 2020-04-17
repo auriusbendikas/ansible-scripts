@@ -1,0 +1,36 @@
+---
+- name: Install mdadm
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    mdadm
+  args:
+    warn: false
+
+- name: Stop all RAID
+  become: true
+  command: >
+    mdadm
+    --stop
+    --scan
+
+- name: Wipe RAID
+  become: true
+  command: >
+    wipefs --all --force {{ item.1 }}
+  loop: '{{ lookup("subelements", raid_list, "members", {"skip_missing": True}) }}'
+
+- name: Create RAID configuration
+  become: true
+  command: >
+    mdadm
+    --create
+    --verbose
+    --homehost=any
+    --level={{ item.level }}
+    --metadata=1.2
+    --chunk={{ item.chunk }}
+    --raid-devices={{ item.members | length }}
+    {{ item.device }}
+    {{ item.members | join(' ') }}
+  loop: '{{ raid_list }}'

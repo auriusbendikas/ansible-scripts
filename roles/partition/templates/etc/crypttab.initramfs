@@ -1,5 +1,0 @@
-# Configuration for encrypted block devices.
-# See crypttab(5) for details.
-
-# <name>       <device>                                     <password>              <options>
-root    UUID={{ partition_encrypted_uuid.stdout }}    none    discard

@@ -1,21 +1,31 @@
 ---
+- name: Format partitions
+  become: true
+  command: '{{ format_command[item.filesystem] }} {{ item.label }} {{ item.options }} {{ item.device }}'
+  loop: '{{ bootloader_mount_list }}'
+
 - name: Mount ROOT partition
   become: true
-  command: mount {{ partition_root_alias }} /mnt
+  command: mount {{ item.device }} /mnt
   args:
     warn: false
+  loop: '{{ bootloader_mount_list }}'
+  when: item.label == 'ROOT'
 
-- name: Create boot EFI directory
+- name: Create mount directories
   become: true
   file:
-    path: /mnt/boot/efi
+    path: /mnt{{ item.mount }}
     state: directory
+  loop: '{{ bootloader_mount_list }}'
 
-- name: Mount EFI
+- name: Mount partitions
   become: true
-  command: mount {{ partition_efi_device }} /mnt/boot/efi
+  command: mount {{ item.device }} /mnt{{ item.mount }}
   args:
     warn: false
+  loop: '{{ bootloader_mount_list }}'
+  when: item.label != 'ROOT'
 
 - name: Install Swedish mirrorlist
   become: true
@@ -32,7 +42,6 @@
     binutils
     bzip2
     coreutils
-    cryptsetup
     device-mapper
     diffutils
     e2fsprogs
@@ -71,7 +80,9 @@
     util-linux
     vi
     which
-    {{ chroot_extra_packages }}
+    {{ 'cryptsetup' if encryption_list }}
+    {{ 'mdadm' if raid_list }}
+    {{ bootloader_extra_packages }}
 
 - name: Execute systemd-firstboot on chroot (Setup default configurations)
   become: true
@@ -82,7 +93,7 @@
     --locale-messages=en_US.UTF-8
     --keymap=us
     --timezone=Europe/Stockholm
-    --hostname={{ chroot_hostname }}
+    --hostname={{ bootloader_hostname }}
     --setup-machine-id
 
 - name: Check if /mnt/usr/share/kbd/consolefonts/ter-132b.psf.gz exists

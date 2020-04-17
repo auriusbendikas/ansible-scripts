@@ -3,20 +3,43 @@
   roles:
     - locale
     - partition
+    - encryption
+    - bootloader
     - create-efi-keys
     - network
     - adduser
   vars:
-    partition_block_device: /dev/nvme0n1
-    partition_efi_number: p1
-    partition_efi_size: 256M
-    partition_root_number: p2
     bootloader_video_driver: i915
-    partition_root_password: test
-    chroot_hostname: testhost
-    chroot_extra_packages: intel-ucode terminus-font
+    bootloader_hostname: testhost
+    bootloader_extra_packages: intel-ucode terminus-font
     efi_keys_location: /mnt/root/secure-boot
+    bash_executable: /usr/bin/arch-chroot /mnt /bin/bash
     user_name: test
     user_password: test
     user_fullname: Firstname Lastname
-    bash_executable: /usr/bin/arch-chroot /mnt /bin/bash
+    partition_disk_list:
+      - device: /dev/nvme0n1
+        partition:
+          - number: p1
+            size: 256M
+            typecode: EF00
+            name: UEFI
+          - number: p2
+            size: 0
+            typecode: 8309
+            name: LUKS
+    encryption_list:
+      - device: /dev/nvme0n1p2
+        name: root
+        password: test
+    bootloader_mount_list:
+      - device: /dev/nvme0n1p1
+        filesystem: vfat
+        options:
+        label: UEFI
+        mount: /boot/efi
+      - device: /dev/mapper/root
+        filesystem: ext4
+        options:
+        label: ROOT
+        mount: /

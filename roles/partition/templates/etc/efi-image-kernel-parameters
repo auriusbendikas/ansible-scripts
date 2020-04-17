@@ -1,1 +1,0 @@
-root=UUID={{ partition_root_uuid.stdout }} quiet splash

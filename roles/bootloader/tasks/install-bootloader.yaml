@@ -1,19 +1,9 @@
 ---
-- name: Find root disk id
+- name: Find UUID's
   become: true
-  command: blkid -o value -s UUID {{ partition_root_alias }}
-  register: partition_root_uuid
-
-- name: Find encrypted root id
-  become: true
-  command: blkid -o value -s UUID {{ partition_root_device }}
-  register: partition_encrypted_uuid
-  when: partition_root_password is not none
-
-- name: Find EFI disk id
-  become: true
-  command: blkid -o value -s UUID {{ partition_efi_device }}
-  register: partition_efi_uuid
+  command: blkid -o value -s UUID {{ item.device }}
+  loop: '{{ bootloader_mount_list + encryption_list }}'
+  register: bootloader_uuid_list
 
 - name: Create templated configuration direcories
   become: true
@@ -31,9 +21,7 @@
     dest: '/mnt/{{ item.path }}'
     mode:  preserve
   with_filetree: templates/
-  when:
-    - item.state == 'file'
-    - partition_root_password or item.path != 'etc/crypttab.initramfs'
+  when: item.state == 'file'
 
 - name: Configure /etc/mkinitcpio.conf
   become: true
@@ -45,7 +33,7 @@
   vars:
     lines:
       MODULES: ({{ bootloader_video_driver }})
-      HOOKS: (base systemd autodetect keyboard sd-vconsole modconf block mdadm_udev sd-encrypt filesystems fsck)
+      HOOKS: (base systemd autodetect keyboard sd-vconsole modconf block {{ 'mdadm_udev ' if raid_list }}{{ 'sd-encrypt ' if encryption_list }}filesystems fsck)
 
 - name: Find all mkinitcpio preset files
   become: true
@@ -53,6 +41,14 @@
     paths: /mnt/etc/mkinitcpio.d
     patterns: '*.preset'
   register: partition_presets
+
+- name: Remove all fallback preset configurations
+  become: true
+  lineinfile:
+    path: '{{ item.path }}'
+    regexp: '^#?fallback_'
+    state: absent
+  loop: '{{ partition_presets.files }}'
 
 - name: Remove all fallback presets
   become: true
@@ -64,7 +60,7 @@
 
 - name: Delete old initrd images
   become: true
-  command: rm -f /mnt/boot/*.img
+  command: find /mnt/boot -type f -name '*.img' -exec rm -f {} \;
   args:
     warn: false
 

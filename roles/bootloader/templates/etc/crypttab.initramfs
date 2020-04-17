@@ -1,0 +1,9 @@
+# Configuration for encrypted block devices.
+# See crypttab(5) for details.
+
+# <name> <device> <password> <options>
+{% for item in encryption_list %}
+
+# {{ item.device }}
+{{ item.name }} UUID={{ bootloader_uuid_list.results | selectattr('item.device', '==', item.device) | map(attribute='stdout') | first }} none discard
+{% endfor %}
