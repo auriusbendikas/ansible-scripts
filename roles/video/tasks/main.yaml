@@ -1,4 +1,20 @@
 ---
+- name: Enable multilib in /etc/pacman.conf
+  become: true
+  replace:
+    path: /etc/pacman.conf
+    regexp: '^#(.*\[multilib\].*)\n#([^\n]+)'
+    replace: '\1\n\2'
+  when: video_multilib | bool
+
+- name: Refresh multilib from /etc/pacman.conf
+  become: true
+  command: >
+    pacman --noconfirm --sync --refresh
+  args:
+    warn: false
+  when: video_multilib | bool
+
 - import_tasks: '{{ video_driver }}.yaml'
 
 - name: Install mpv

@@ -14,13 +14,13 @@
     - steam
     - install
   vars:
-    partition_block_device: /dev/sda
-    partition_efi_number: p1
+    sbupdate_disk: /dev/nvme0n1
+    sbupdate_partition_number: 1
     git_user: Firstname Lastname
     git_mail: adress@domain.com
-    dpi: 192
-    background_color: '#000000'
-    background_image: /usr/share/pixmaps/hextille-background.svg
+    i3_dpi: 192
+    i3_background_color: '#000000'
+    i3_background_image: /usr/share/pixmaps/hextille-background.svg
     install_pacman_packages:
       - gvfs-mtp
       - htop

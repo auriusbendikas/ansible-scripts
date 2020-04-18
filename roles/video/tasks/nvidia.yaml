@@ -1,12 +1,14 @@
 ---
-- name: Install Intel 3D and VAPI drivers
+- name: Install Nvidia 3D, vdpau and VAPI drivers
   become: true
   command: >
     pacman --noconfirm --sync
-    mesa
-    vulkan-intel
-    intel-media-driver
-    intel-compute-runtime
+    nvidia-lts
+    nvidia-settings
+    libvdpau
+    libva-vdpau-driver
+    opencl-nvidia
+    cuda
   args:
     warn: false
 
@@ -15,14 +17,16 @@
   lineinfile:
     path: /etc/environment
     regexp: '^LIBVA_DRIVER_NAME='
-    line: 'LIBVA_DRIVER_NAME=iHD'
+    line: 'LIBVA_DRIVER_NAME=vdpau'
 
-- name: Install multilib Intel 3D and VAPI drivers
+- name: Install multilib Nvidia 3D, vdpau and VAPI drivers
   become: true
   command: >
     pacman --noconfirm --sync
-    lib32-mesa
-    lib32-vulkan-intel
+    lib32-nvidia-utils
+    lib32-libvdpau
+    lib32-libva-vdpau-driver
+    lib32-opencl-nvidia
   args:
     warn: false
   when: video_multilib | bool

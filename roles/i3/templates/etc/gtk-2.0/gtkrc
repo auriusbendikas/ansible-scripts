@@ -12,4 +12,4 @@ gtk-enable-input-feedback-sounds=0
 gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle="hintslight"
-gtk-xft-rgba="{{ rgba }}"
+gtk-xft-rgba="{{ i3_rgba }}"

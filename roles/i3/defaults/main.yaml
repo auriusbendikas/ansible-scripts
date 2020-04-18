@@ -1,5 +1,6 @@
 ---
-dpi: 96
-rgba: rgb
-background_color: '#0d7d8d'
-background_image:
+i3_dpi: 96
+i3_rgba: rgb
+i3_background_color: '#0d7d8d'
+i3_background_image:
+i3_preferred_resolution:

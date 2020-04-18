@@ -1,4 +1,16 @@
 ---
+- name: Check if mdadm is installed
+  become: true
+  command: pacman --query --info mdadm
+  ignore_errors: true
+  register: bootloader_mdadm
+
+- name: Check if cryptsetup is installed
+  become: true
+  command: pacman --query --info cryptsetup
+  ignore_errors: true
+  register: bootloader_cryptsetup
+
 - name: Configure /etc/mkinitcpio.conf
   become: true
   lineinfile:
@@ -8,7 +20,7 @@
   loop: '{{ query("dict", lines) }}'
   vars:
     lines:
-      HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block mdadm_udev sd-encrypt filesystems fsck)
+      HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block {{ 'mdadm_udev ' if bootloader_mdadm.rc == 0 }}{{ 'sd-encrypt ' if bootloader_cryptsetup.rc == 0 }}filesystems fsck)
 
 - name: Configure /etc/plymouth/plymouthd.conf
   become: true

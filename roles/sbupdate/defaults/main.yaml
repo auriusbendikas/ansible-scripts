@@ -1,3 +1,3 @@
 ---
-partition_block_device: /dev/sda
-partition_efi_number: 1
+sbupdate_disk: /dev/sda
+sbupdate_partition_number: 1

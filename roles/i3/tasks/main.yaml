@@ -16,8 +16,9 @@
     rofi
     lightdm
     numlockx
-    ttf-ubuntu-font-family
     ttf-dejavu
+    ttf-ubuntu-font-family
+    ttf-linux-libertine
     gnome-themes-extra
     thunar
     thunar-archive-plugin
@@ -87,10 +88,10 @@
   loop: '{{ query("dict", lines) }}'
   vars:
     lines:
-      GDK_SCALE: '{{ (dpi/96) | round(0, "ceil") | int }}'
-      GDK_DPI_SCALE: '{{ 1 / ((dpi/96) | round(0, "ceil")) }}'
+      GDK_SCALE: '{{ (i3_dpi/96) | round(0, "ceil") | int }}'
+      GDK_DPI_SCALE: '{{ 1 / ((i3_dpi/96) | round(0, "ceil")) }}'
       QT_AUTO_SCREEN_SCALE_FACTOR: 1
-  when: dpi > 96
+  when: i3_dpi > 96
 
 - name: Configure rest of /etc/environment
   become: true
