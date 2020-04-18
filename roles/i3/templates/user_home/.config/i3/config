@@ -129,16 +129,18 @@ mode "resize" {
     bindsym Escape mode "default"
     bindsym $mod+r mode "default"
 }
-
 bindsym $mod+r mode "resize"
-
 mode "terminal" {
     bindsym XF86Terminal mode "default"; workspace back_and_forth
     bindsym $mod+Return exec roxterm --tab
     bindsym $mod+Shift+q kill
 }
-
 bindsym XF86Terminal mode "terminal"; workspace $ws10
+mode "gaming" {
+    bindsym $mod+Shift+g mode "default"
+    bindsym $mod+Shift+q kill
+}
+bindsym $mod+Shift+g mode "gaming"
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -153,7 +155,7 @@ for_window [class="^KeePassXC$"] $floating_window_style
 for_window [class="^Pavucontrol$"] $floating_window_style
 for_window [class="^Steam$" title="^Steam - .+$"] $floating_window_style
 
-assign [class="^firefoxdeveloperedition$"] → $ws1
+assign [class="^Opera$"] → $ws1
 assign [class="^Thunar$"] → $ws3
 assign [class="^Sublime_text$"] → $ws4
 assign [class="^Steam$"] → $ws6

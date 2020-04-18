@@ -8,7 +8,13 @@
   args:
     warn: false
 
-- name: Configure initial opera settings
+- name: Create opera config directory
+  file:
+    path: '~/.config/opera'
+    state: directory
+
+- name: Create default opera preferences
   copy:
-    src: user_home/
-    dest: '~'
+    content: '{{ opera_preferences | to_json }}'
+    dest: '~/.config/opera/Preferences'
+    force: false

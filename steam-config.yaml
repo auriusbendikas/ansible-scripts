@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  roles:
+    - upgrade
+    - sublime-text
+    - git
+    - i3
+    - opera
+    - sound
+    - bluetooth
+    - steam
+    - install
+  vars:
+    git_user: Firstname Lastname
+    git_mail: adress@domain.com
+    video_driver: nvidia
+    i3_dpi: 96
+    i3_rgba: rgb
+    i3_background_color: '#000000'
+    i3_background_image: /usr/share/pixmaps/hextille-background.svg
+    install_pacman_packages:
+      - gvfs-mtp
+      - htop
+      - noto-fonts-cjk
+    install_pikaur_packages:
+      - roccat-tools-sova
+      - roccat-tools-konepure

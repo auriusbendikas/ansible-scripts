@@ -1,0 +1,340 @@
+---
+opera_preferences:
+  Keybindings:
+    Basic:
+      AddToBookmarks: []
+      CloseTab:
+      - Ctrl+F4
+      - Ctrl+Q
+      CloseWindow:
+      - Alt+F4
+      - Ctrl+Shift+Q
+      DevTools:
+      - Ctrl+Shift+I
+      - F12
+      DuplicateTab:
+      - Ctrl+D
+      Exit: []
+      SelectNextTab:
+      - Ctrl+]
+      SelectPreviousTab:
+      - Ctrl+[
+    Settings:
+      AdvancedEnabled: false
+  adblocker:
+    enabled: true
+    trackers:
+      enabled: true
+  allow_popups_during_page_unload: false
+  allow_sync_xhr_in_page_dismissal: false
+  auth:
+    globally_scoped_http_auth_cache_enabled: false
+  autofill:
+    credit_card_enabled: false
+    enabled: false
+    profile_enabled: false
+    wallet_import_enabled: false
+  bookmark_bar:
+    auto_hidden: true
+    show_apps_shortcut: true
+    show_managed_bookmarks: true
+    show_on_all_tabs: false
+  bookmarks:
+    editing_enabled: true
+  browser:
+    advanced_settings_enabled: true
+    confirm_to_quit_enabled: true
+    custom_chrome_frame: false
+    enable_spellchecking: true
+    fraud_protection_enabled: true
+    pepper_flash_settings_enabled: false
+    shared_clipboard_enabled: true
+    speechinput_censor_results: false
+  browser_sidebar:
+    panel_enabled:
+      bookmarks: true
+      history: true
+  continue_shopping:
+    amazon_folded: false
+    amazon_section_enabled: false
+    booking_section_enabled: false
+  credentials_enable_autosignin: false
+  credentials_enable_service: false
+  crypto_wallet:
+    enabled: false
+  custom_handlers:
+    enabled: true
+    ignored_protocol_handlers:
+    - protocol: webcal
+      url: https://calendar.google.com/calendar/r?cid=%s
+    registered_protocol_handlers:
+    - default: true
+      protocol: mailto
+      url: https://mail.google.com/mail/?extsrc=mailto&url=%s
+  default_search_provider:
+    enabled: true
+    synced_guid: 3BFDFA54-5DD6-4DFF-8B6C-C1715F306D6B
+  documentsuggest:
+    enabled: true
+  download:
+    open_pdf_in_system_reader: false
+    prompt_for_download: true
+  easy_share:
+    enabled: false
+    registered: false
+  enable_a_ping: true
+  enable_do_not_track: true
+  enable_referrers: true
+  enterprise_hardware_platform_api:
+    enabled: false
+  feedback_allowed: false
+  homepage: about:blank
+  intl:
+    accept_languages: en-US,en
+    charset_default: UTF-8
+  media:
+    autoplay_allowed: false
+    block_autoplay: true
+  mouse_gestures:
+    enabled: false
+    user_notified: false
+  payments:
+    can_make_payment_enabled: false
+    first_transaction_completed: false
+  personal_news:
+    history_recommendations_enabled: false
+  plugins:
+    allow_outdated: false
+    always_open_pdf_externally: false
+    run_all_flash_in_allow_mode: false
+  power_save_mode:
+    always_show_icon: false
+    automatic_enabled: false
+    feature_enabled: true
+  preload:
+    startpage: true
+  printing:
+    enabled: true
+    print_header_footer: false
+    print_preview_disabled: false
+  private_mode:
+    welcome_page_enabled: false
+  quick_access_bar:
+    visible: false
+  regional_suggestions: false
+  reverse_autologin:
+    enabled: true
+  rich_hints:
+    marketplace_enabled: false
+  rocker_gestures:
+    enabled: false
+  search:
+    suggest_enabled: false
+  search_engines_private:
+    opted_in: true
+  security_state:
+    stricter_mixed_content_treatment_enabled: true
+  session:
+    restore_on_startup: 1
+  settings:
+    force_google_safesearch: false
+    history_recorded: false
+    use_shared_proxies: false
+  settings_page:
+    vpn_disclaimer_enabled: false
+  speeddial:
+    bigger_tiles: false
+    bigger_tiles_ab_test_enabled: false
+    bigger_tiles_ab_test_value: false
+    bigger_tiles_applicable_on_high_resolution: false
+    bookmarks_folder_guid: d1fd8926-0541-43b4-b5ba-bfcfd39dd4ff
+    disable_animations: true
+    hide_plus_button: true
+    hide_search_box: true
+    hide_suggestions: true
+    hide_suggestions_forced_for_news: true
+    partners:
+      blacklist:
+        http://aliexpress.com/: '20171003'
+        http://www.aftonbladet.se/: '20171003'
+        http://www.amazon.co.uk/: '20191128'
+        http://www.ebay.com/: '20171003'
+        http://www.facebook.com/: '20171003'
+        https://om.forgeofempires.com/: '20200415'
+        https://worldofwarships.eu/: '20181203'
+        https://www.bonprix.se/: '20171003'
+        https://www.booking.com/: '20190614'
+      migration_not_needed: true
+    show_suggestions: false
+    suggestions:
+      shown: true
+  spellcheck:
+    dictionaries:
+    - en-US
+    dictionaries_in_use: en-US
+  startpage:
+    adjust_columns: true
+    hide_speeddial: false
+    navigation_hide_toggle_tooltip_state: 1
+    news_ab_test_enabled: false
+    news_disabled_setting_forced: true
+    search_engine_suggestion_enabled: true
+    show_campaigns: false
+    show_news_container: false
+    yandex_style_overrides: true
+    zen_news_consent_given: false
+    zen_news_leads:
+      dont_show: true
+  statistics:
+    collection_asked: true
+    collection_enabled: false
+  sync:
+    app_list: false
+    app_notifications: false
+    app_settings: false
+    apps: false
+    arc_package: false
+    articles: false
+    autofill: false
+    autofill_profile: false
+    autofill_wallet: false
+    autofill_wallet_metadata: false
+    bookmarks: false
+    device_info: false
+    dictionary: false
+    enable_local_sync_backend: false
+    extension_settings: false
+    extensions: false
+    favicon_images: false
+    favicon_tracking: false
+    has_auth_error: false
+    has_setup_completed: false
+    history_delete_directives: false
+    keep_everything_synced: false
+    managed: false
+    managed_user_settings: false
+    managed_user_shared_settings: false
+    managed_user_whitelists: false
+    managed_users: false
+    mountain_shares: false
+    passphrase_encryption_transition_in_progress: false
+    passphrase_prompted: false
+    passwords: false
+    preferences: false
+    priority_preferences: false
+    reading_list: false
+    requested: false
+    search_engines: false
+    sessions: false
+    shutdown_cleanly: false
+    suppress_start: false
+    synced_notification_app_info: false
+    synced_notifications: false
+    tabs: false
+    themes: false
+    typed_urls: false
+    user_consents: false
+    user_events: false
+    wifi_credentials: false
+  sync_promo:
+    show_ntp_bubble: false
+    show_on_first_run_allowed: false
+  themes:
+    enabled: false
+    selected_id: bundled/default_dark_theme
+  translate:
+    enabled: true
+  translate_blocked_languages:
+  - en
+  ui:
+    browser:
+      sidebar:
+        item_prefs:
+          visibility:
+            Bookmarks: true
+            Downloads: false
+            Extensions: false
+            FacebookMessenger: false
+            History: true
+            Instagram: false
+            InstantSearch: false
+            News: false
+            Settings: true
+            SpeedDial: false
+            Telegram: false
+            VKontakte: false
+            Whatsapp: false
+            Workspace_1: true
+            Workspace_2: true
+            Workspace_3: true
+            Workspace_4: true
+            Workspace_5: true
+        notifications_enabled: true
+        onboarding:
+          suppressed: true
+        visible: true
+    dark_skin: true
+    feedback_dialog_enabled: false
+    hint:
+      ad_blocker_offer_enabled: true
+      power_save_mode_automatic_enabled: true
+      proxy_switcher_reminder_enabled: true
+      sidebar_media_permissions_cam_enabled: true
+      sidebar_media_permissions_mic_enabled: true
+      startpage_configuration_enabled: true
+    instant_search:
+      enabled: false
+    launches_until_default_browser_check: 0
+    lazy_session_loading: true
+    number_tabs_loaded_lazily: 0
+    open_startpage_on_session_restore: false
+    scroll_on_active_tab_on_click: true
+    search_box_enabled: false
+    search_popup_enabled: false
+    show_all_extensions_onboarding_enabled: false
+    show_full_url: true
+    show_tab_preview: false
+    sidebar_history_onboarding_shown: true
+    sidebar_setup:
+      hide_workspace_no_confirm: false
+      remove_workspace_no_confirm: false
+    tab_cycling:
+      in_activation_order: false
+    time_converter:
+      enabled: false
+    traffic_lights_enabled: false
+    units_conversion:
+      enabled: false
+    warn_on_closing_multiple_tabs: true
+    warn_on_quitting_opera_with_multiple_tabs: true
+    web_feed_finder_enabled: false
+    workspaces:
+      config:
+        enabled: true
+        icons:
+          '1': home-icon
+          '2': work-icon
+          '3': reading-icon
+          '4': shopping-icon
+          '5': gaming-icon
+        id:
+          '1': true
+          '2': true
+          '3': true
+          '4': true
+          '5': true
+        names:
+          '1': Home
+          '2': Development
+          '3': Search
+          '4': Shopping
+          '5': Gaming
+        next_id: 6
+        order:
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+  video_popout:
+    enabled: true

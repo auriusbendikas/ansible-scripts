@@ -1,0 +1,51 @@
+---
+- hosts: localhost
+  roles:
+    - locale
+    - raid
+    - partition
+    - bootloader
+    - network
+    - adduser
+  vars:
+    bootloader_video_driver:
+    bootloader_hostname: testhost
+    bootloader_extra_packages: intel-ucode
+    bash_executable: /usr/bin/arch-chroot /mnt /bin/bash
+    user_name: test
+    user_password: test
+    user_fullname: Firstname Lastname
+    raid_list:
+      - device: /dev/md/root
+        level: 0
+        chunk: 64
+        members:
+          - /dev/sda
+          - /dev/sdb
+    partition_disk_list:
+      - device: /dev/sdc
+        partition:
+          - number: 1
+            size: 256M
+            typecode: EF00
+            name: UEFI
+          - number: 2
+            size: 0
+            typecode: 8300
+            name: DATA
+    bootloader_mount_list:
+      - device: /dev/sdc1
+        filesystem: vfat
+        options:
+        label: UEFI
+        mount: /boot/efi
+      - device: /dev/sdc2
+        filesystem: ext4
+        options:
+        label: DATA
+        mount: /run/media/{{ user_name }}/data
+      - device: /dev/md/root
+        filesystem: ext4
+        options: -E stride=16,stripe-width=32
+        label: ROOT
+        mount: /
