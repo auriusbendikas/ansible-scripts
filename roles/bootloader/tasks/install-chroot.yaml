@@ -59,7 +59,7 @@
     iputils
     less
     licenses
-    linux-lts
+    linux-zen
     linux-firmware
     logrotate
     man-db

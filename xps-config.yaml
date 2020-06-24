@@ -29,11 +29,9 @@
       - bolt
       - noto-fonts-cjk
     install_pikaur_packages:
-      - odrive-bin
+      - grive-git
     install_autostart:
       - comment: Start xss-lock
         executable: xss-lock -- i3lock --color=000000 --ignore-empty-password --show-failed-attempts
-      - comment: Start ODrive - GUI client for Google Drive on linux https://github.com/liberodark/ODrive
-        executable: nm-online && /opt/OpenDrive/odrive
       - comment: Start KeePassXC password manager
         executable: keepassxc

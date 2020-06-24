@@ -3,7 +3,7 @@
   become: true
   command: >
     pacman --noconfirm --sync
-    nvidia-lts
+    nvidia-dkms
     nvidia-settings
     libvdpau
     libva-vdpau-driver
