@@ -3,9 +3,6 @@
 # Install network-manager packages
 pacman --noconfirm --sync network-manager-applet bind-tools
 
-# Disable systemd-networkd service
-systemctl disable systemd-networkd
-
 # Configure systemd-resolved as a DNS resolver
 declare -A resolved
 resolved['DNS']='1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001'
