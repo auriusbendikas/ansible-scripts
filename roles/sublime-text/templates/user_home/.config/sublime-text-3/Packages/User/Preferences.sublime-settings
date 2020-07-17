@@ -5,5 +5,6 @@
     "font_size": 9,
     "shift_tab_unindent": true,
     "show_line_endings": true,
-    "translate_tabs_to_spaces": true
+    "translate_tabs_to_spaces": true,
+    "index_files": false
 }
