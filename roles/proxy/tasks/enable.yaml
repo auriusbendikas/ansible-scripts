@@ -1,12 +1,7 @@
 ---
 
-- name: Copy user configurations for proxy
-  copy:
-    src: user_home/
-    dest: '~'
-
-- name: Set correct permissions on ssh config
-  file:
-    path: ~/.ssh/config
-    state: touch
+- name: Create ssh proxy configuration for github
+  template:
+    src: templates/user_home/.ssh/config
+    dest: '~/.ssh/config'
     mode: 0600
