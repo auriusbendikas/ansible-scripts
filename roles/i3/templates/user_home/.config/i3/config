@@ -148,6 +148,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 # Look and feel
 default_border none
 default_floating_border normal 2
+focus_follows_mouse no
 
 for_window [class="^Git-gui$"] $floating_window_style
 for_window [class="^Xarchiver$"] $floating_window_style
