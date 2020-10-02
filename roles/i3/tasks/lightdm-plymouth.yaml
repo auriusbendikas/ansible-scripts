@@ -26,12 +26,17 @@
   become: true
   lineinfile:
     path: /etc/plymouth/plymouthd.conf
-    regexp: 'ShowDelay='
-    line: 'ShowDelay=0'
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      ShowDelay: 0
+      DialogClearsFirmwareBackground: false
 
 - name: Set plymouth theme and regenerate initrd image
   become: true
-  command: plymouth-set-default-theme --rebuild-initrd spinfinity
+  command: plymouth-set-default-theme --rebuild-initrd bgrt
 
 - name: Check if sbupdate is installed
   stat:
