@@ -12,9 +12,7 @@
   become: true
   command: >
     pacman --noconfirm --sync
-    linux-zen-headers
     virtualbox-guest-utils
-    virtualbox-guest-dkms
     xf86-video-vmware
     proxytunnel
   args:
