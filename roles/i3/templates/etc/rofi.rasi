@@ -1,0 +1,7 @@
+configuration {
+  modi: "window,run,drun";
+  font: "Ubuntu 11";
+  show-icons: true;
+  drun-show-actions: true;
+  dpi: {{ i3_dpi }};
+}
