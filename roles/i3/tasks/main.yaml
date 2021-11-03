@@ -3,31 +3,32 @@
   become: true
   command: >
     pacman --noconfirm --sync
+    feh
+    gnome-themes-extra
+    gvfs
+    hsetroot
+    i3-wm
+    i3status
+    imagemagick
+    light
+    lightdm
+    numlockx
+    p7zip
+    picom
+    rofi
+    thunar
+    thunar-archive-plugin
+    thunar-media-tags-plugin
+    thunar-volman
+    ttf-dejavu
+    ttf-linux-libertine
+    ttf-ubuntu-font-family
+    xarchiver
     xorg-server
     xorg-xprop
     xorg-xrandr
     xorg-xrdb
     xorg-xset
-    hsetroot
-    imagemagick
-    feh
-    i3-wm
-    i3status
-    rofi
-    lightdm
-    numlockx
-    ttf-dejavu
-    ttf-ubuntu-font-family
-    ttf-linux-libertine
-    gnome-themes-extra
-    thunar
-    thunar-archive-plugin
-    thunar-media-tags-plugin
-    thunar-volman
-    xarchiver
-    p7zip
-    gvfs
-    picom
   args:
     warn: false
 
@@ -117,6 +118,13 @@
       HandlePowerKey: ignore
       HandleSuspendKey: suspend
       HandleHibernateKey: ignore
+
+- name: Adding "{{ ansible_user_id }}" user to usergroup "video". This will allow "{{ ansible_user_id }}" user to control screen brigtness with "light"
+  become: true
+  user:
+    name: '{{ ansible_user_id }}'
+    groups: video
+    append: true
 
 - name: Augument global_autostart variable for autostart entry creation
   set_fact:
