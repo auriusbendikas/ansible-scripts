@@ -1,4 +1,4 @@
-[commands.swipe.three]
+[swipe.commands.three]
 left_up = ""
 right_up = ""
 up = ""
@@ -8,7 +8,7 @@ down = ""
 left = ""
 right = ""
 
-[commands.swipe.four]
+[swipe.commands.four]
 left_up = ""
 right_up = ""
 up = ""

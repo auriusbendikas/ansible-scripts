@@ -5,3 +5,4 @@ configuration {
   drun-show-actions: true;
   dpi: {{ i3_dpi }};
 }
+@theme "/usr/share/rofi/themes/Monokai.rasi"

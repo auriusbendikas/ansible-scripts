@@ -160,7 +160,7 @@ for_window [class="^Steam$" title="^Steam - .+$"] $floating_window_style
 
 assign [class="^Opera$"] → $ws1
 assign [class="^Thunar$"] → $ws3
-assign [class="^Sublime_text$"] → $ws4
+assign [class="^Subl$"] → $ws4
 assign [class="^Steam$"] → $ws6
 assign [class="^VirtualBox$"] → $ws6
 assign [class="^VirtualBox Manager$"] → $ws6

@@ -8,9 +8,8 @@
     warn: false
 
 - name: Install sbupdate
-  become: true
   command: >
-    pikaur --noconfirm -S
+    pikaur --noconfirm --sync
     sbupdate-git
 
 - name: Configure /etc/sbupdate.conf
