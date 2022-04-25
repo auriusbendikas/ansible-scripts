@@ -1,0 +1,4 @@
+Host *
+  ControlMaster auto
+  ControlPath /run/user/%i/ssh_mux_%h_%p_%r
+  ControlPersist 120m

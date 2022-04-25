@@ -7,6 +7,12 @@
   args:
     warn: false
 
+- name: Copy configuration
+  become: true
+  copy:
+    src: files/
+    dest: /
+
 - name: Enable sshd.service
   become: true
   command: systemctl enable sshd.service
