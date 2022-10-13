@@ -26,10 +26,10 @@
       - xss-lock
       - i3lock
       - keepassxc
+      - rclone
       - bolt
       - noto-fonts-cjk
     install_pikaur_packages:
-      - grive-git
     install_autostart:
       - comment: Start xss-lock
         executable: xss-lock -- i3lock --color=000000 --ignore-empty-password --show-failed-attempts
