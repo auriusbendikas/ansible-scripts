@@ -1,0 +1,9 @@
+---
+- name: Install Open JDK 17
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    jdk17-openjdk
+    openjdk17-src
+    openjdk17-doc
+    visualvm

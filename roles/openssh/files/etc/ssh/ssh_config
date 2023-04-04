@@ -1,4 +1,4 @@
 Host *
   ControlMaster auto
-  ControlPath /run/user/%i/ssh_mux_%h_%p_%r
+  ControlPath /tmp/ssh-control-socket_uid:%i_%C
   ControlPersist 120m

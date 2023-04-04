@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     mdadm
-  args:
-    warn: false
 
 - name: Stop all RAID
   become: true

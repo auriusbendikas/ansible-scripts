@@ -7,8 +7,6 @@
     git
     libxslt
     aspell-en
-  args:
-    warn: false
 
 - name: Install git extending AUR packages
   command: >

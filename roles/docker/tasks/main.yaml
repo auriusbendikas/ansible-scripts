@@ -1,17 +1,22 @@
 ---
-- name: Install docker-ce and docker-compose
+- name: Install docker and docker-compose
   become: true
   command: >
     pacman --noconfirm --sync
+    docker
     docker-compose
-  args:
-    warn: false
 
 - name: Copy default configuration
   become: true
   copy:
     src: etc/
     dest: /etc
+
+- name: Ensure group "docker" exists
+  become: true
+  group:
+    name: docker
+    state: present
 
 - name: Adding "{{ ansible_user_id }}" user to usergroup "docker". This will allow "{{ ansible_user_id }}" user execute Docker commands without sudo
   become: true
@@ -23,5 +28,3 @@
 - name: Enable docker.service
   become: true
   command: systemctl enable docker.service
-  args:
-    warn: false

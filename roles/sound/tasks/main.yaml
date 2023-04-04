@@ -7,8 +7,6 @@
     paprefs
     pavucontrol
     pulseaudio
-  args:
-    warn: false
 
 - name: Augument global_autostart variable for autostart entry creation
   set_fact:

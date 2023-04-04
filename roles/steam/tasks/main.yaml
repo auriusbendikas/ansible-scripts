@@ -4,5 +4,3 @@
   command: >
     pacman --noconfirm --sync
     steam
-  args:
-    warn: false

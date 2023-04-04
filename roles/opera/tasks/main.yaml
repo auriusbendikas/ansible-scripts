@@ -5,8 +5,6 @@
     pacman --noconfirm --sync
     opera
     opera-ffmpeg-codecs
-  args:
-    warn: false
 
 - name: Create opera config directory
   file:

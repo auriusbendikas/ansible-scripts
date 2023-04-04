@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     efibootmgr
-  args:
-    warn: false
 
 - name: Install sbupdate
   command: >
@@ -34,8 +32,6 @@
     /etc/pacman.d/hooks/generate-efi-image.hook
     /etc/efi-image-kernel-parameters
     /boot/efi/EFI
-  args:
-    warn: false
 
 - name: Run sbupdate
   become: true

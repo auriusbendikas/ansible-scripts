@@ -2,16 +2,12 @@
 - name: Upgrade pacman packages
   become: true
   command: pacman --sync --refresh --sysupgrade --noconfirm
-  args:
-    warn: false
 
 - name: Install pikaur dependencies
   become: true
   command: >
     pacman --noconfirm --sync
     base-devel
-  args:
-    warn: false
 
 - name: Clone pikaur GIT repository to /tmp/pikaur
   git:
@@ -33,8 +29,6 @@
   command: >
     pacman --noconfirm --sync --asdeps
     asp
-  args:
-    warn: false
 
 - name: Remove /tmp/pikaur
   file:

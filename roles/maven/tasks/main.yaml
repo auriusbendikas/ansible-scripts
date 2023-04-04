@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     maven
-  args:
-    warn: false
 
 - name: Create /etc/bash_completion.d if does not exist
   become: true

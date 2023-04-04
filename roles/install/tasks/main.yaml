@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     {{ install_pacman_packages | join(' ') }}
-  args:
-    warn: false
   when: install_pacman_packages is iterable
 
 - name: Install {{ install_pikaur_packages | default('nothing', true) }}

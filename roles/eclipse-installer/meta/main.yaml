@@ -1,4 +1,4 @@
 ---
 dependencies:
   - role: git
-  - role: '{{ jdk | default("openjdk-11")}}'
+  - role: '{{ jdk | default("openjdk-17")}}'

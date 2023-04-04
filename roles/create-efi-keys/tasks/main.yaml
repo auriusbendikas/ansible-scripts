@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     efitools
-  args:
-    warn: false
 
 - name: Create EFI keys directory {{ efi_keys_location }}
   become: true

@@ -7,5 +7,3 @@
     openjdk11-src
     openjdk11-doc
     visualvm
-  args:
-    warn: false

@@ -5,14 +5,10 @@
     pacman --noconfirm --sync
     blueman
     pulseaudio-bluetooth
-  args:
-    warn: false
 
 - name: Enable bluetooth service
   become: true
   command: systemctl enable bluetooth.service
-  args:
-    warn: false
 
 - name: Augument global_autostart variable for autostart entry creation
   set_fact:

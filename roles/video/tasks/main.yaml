@@ -11,8 +11,6 @@
   become: true
   command: >
     pacman --noconfirm --sync --refresh
-  args:
-    warn: false
   when: video_multilib | bool
 
 - import_tasks: '{{ video_driver }}.yaml'
@@ -22,8 +20,6 @@
   command: >
     pacman --noconfirm --sync
     mpv
-  args:
-    warn: false
 
 - name: Create templated configuration direcories
   become: true

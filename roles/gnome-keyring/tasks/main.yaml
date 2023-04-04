@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     seahorse
-  args:
-    warn: false
 
 - name: Configure auth section of /etc/pam.d/login
   become: true

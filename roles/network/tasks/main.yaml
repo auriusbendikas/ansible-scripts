@@ -4,4 +4,3 @@
   command: '{{ bash_executable }} -xe -- /dev/stdin'
   args:
     stdin: '{{ lookup("template", "network.sh") }}'
-    warn: false

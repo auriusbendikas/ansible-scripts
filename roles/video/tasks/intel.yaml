@@ -7,8 +7,6 @@
     vulkan-intel
     intel-media-driver
     intel-compute-runtime
-  args:
-    warn: false
 
 - name: Add LIBVA_DRIVER_NAME to /etc/environment
   become: true
@@ -23,6 +21,4 @@
     pacman --noconfirm --sync
     lib32-mesa
     lib32-vulkan-intel
-  args:
-    warn: false
   when: video_multilib | bool

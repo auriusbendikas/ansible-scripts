@@ -3,5 +3,5 @@ format_command:
   vfat: mkfs.fat -F 32 -n
   ext4: mkfs.ext4 -m 0 -b 4096 -L
 mount_options:
-  vfat: rw,relatime,nofail,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro
-  ext4: rw,relatime
+  vfat: defaults,nofail
+  ext4: defaults,nofail

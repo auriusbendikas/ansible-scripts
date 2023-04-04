@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --remove --recursive
     virtualbox-guest-utils-nox
-  args:
-    warn: false
   failed_when: false
 
 - name: Install full virtualbox guest additions packages
@@ -15,8 +13,6 @@
     virtualbox-guest-utils
     xf86-video-vmware
     proxytunnel
-  args:
-    warn: false
 
 - name: Create templated configuration direcories
   become: true

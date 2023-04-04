@@ -14,6 +14,7 @@
     lightdm
     numlockx
     p7zip
+    plymouth
     picom
     rofi
     thunar
@@ -22,6 +23,7 @@
     thunar-volman
     ttf-dejavu
     libertinus-font
+    lightdm-slick-greeter
     ttf-ubuntu-font-family
     xarchiver
     xorg-server
@@ -29,14 +31,10 @@
     xorg-xrandr
     xorg-xrdb
     xorg-xset
-  args:
-    warn: false
 
 - name: Install necessary AUR packages
   command: >
     pikaur --noconfirm --sync
-    lightdm-slick-greeter
-    plymouth
     roxterm
 
 - import_tasks: lightdm-plymouth.yaml
@@ -80,6 +78,15 @@
       CAPS: XF86Terminal
       AB11: XF86Terminal
 
+- name: Register "aurius.map" keymap to /etc/vconsole.conf
+  become: true
+  lineinfile:
+    path: /etc/vconsole.conf
+    regexp: '^{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}={{ item.value }}'
+  with_dict:
+    KEYMAP: /usr/local/share/kbd/keymaps/aurius.map
+
 - name: Configure /etc/environment for high DPI scaling
   become: true
   lineinfile:
@@ -89,10 +96,10 @@
   loop: '{{ query("dict", lines) }}'
   vars:
     lines:
-      GDK_SCALE: '{{ (i3_dpi/96) | round(0, "ceil") | int }}'
-      GDK_DPI_SCALE: '{{ 1 / ((i3_dpi/96) | round(0, "ceil")) }}'
+      GDK_SCALE: '{{ (i3_dpi/93) | round(0, "ceil") | int }}'
+      GDK_DPI_SCALE: '{{ 1 / ((i3_dpi/93) | round(0, "ceil")) }}'
       QT_AUTO_SCREEN_SCALE_FACTOR: 1
-  when: i3_dpi > 96
+  when: i3_dpi > 93
 
 - name: Configure rest of /etc/environment
   become: true

@@ -61,8 +61,6 @@
 - name: Delete old initrd images
   become: true
   command: find /mnt/boot -type f -name '*.img' -exec rm -f {} \;
-  args:
-    warn: false
 
 - name: Regenerate initrd image
   become: true

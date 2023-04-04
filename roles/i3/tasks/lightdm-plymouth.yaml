@@ -20,7 +20,7 @@
   loop: '{{ query("dict", lines) }}'
   vars:
     lines:
-      HOOKS: (base systemd sd-plymouth autodetect keyboard sd-vconsole modconf block {{ 'mdadm_udev ' if bootloader_mdadm.rc == 0 }}{{ 'sd-encrypt ' if bootloader_cryptsetup.rc == 0 }}filesystems fsck)
+      HOOKS: (base systemd plymouth autodetect keyboard sd-vconsole modconf block {{ 'mdadm_udev ' if bootloader_mdadm.rc == 0 }}{{ 'sd-encrypt ' if bootloader_cryptsetup.rc == 0 }}filesystems fsck)
 
 - name: Configure /etc/plymouth/plymouthd.conf
   become: true
@@ -58,10 +58,10 @@
   command: /usr/bin/generate-efi-image
   when: generate_efi_image.stat.exists
 
-- name: Enable lightdm-plymouth service
+- name: Enable lightdm service
   become: true
   systemd:
-    name: lightdm-plymouth
+    name: lightdm
     enabled: true
 
 - name: Configure /etc/lightdm/users.conf

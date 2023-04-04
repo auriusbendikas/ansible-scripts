@@ -7,8 +7,6 @@
 - name: Mount ROOT partition
   become: true
   command: mount {{ item.device }} /mnt
-  args:
-    warn: false
   loop: '{{ bootloader_mount_list }}'
   when: item.label == 'ROOT'
 
@@ -22,8 +20,6 @@
 - name: Mount partitions
   become: true
   command: mount {{ item.device }} /mnt{{ item.mount }}
-  args:
-    warn: false
   loop: '{{ bootloader_mount_list }}'
   when: item.label != 'ROOT'
 

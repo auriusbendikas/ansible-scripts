@@ -4,7 +4,7 @@
     - locale
     - upgrade
     - openssh
-    - docker-ce
+    - docker
     - install
   vars:
     install_pacman_packages:

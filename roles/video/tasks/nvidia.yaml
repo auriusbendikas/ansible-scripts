@@ -3,14 +3,13 @@
   become: true
   command: >
     pacman --noconfirm --sync
+    linux-zen-headers
     nvidia-dkms
     nvidia-settings
     libvdpau
     libva-vdpau-driver
     opencl-nvidia
     cuda
-  args:
-    warn: false
 
 - name: Add LIBVA_DRIVER_NAME to /etc/environment
   become: true
@@ -27,6 +26,4 @@
     lib32-libvdpau
     lib32-libva-vdpau-driver
     lib32-opencl-nvidia
-  args:
-    warn: false
   when: video_multilib | bool

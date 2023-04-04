@@ -25,4 +25,4 @@
   lineinfile:
     path: /etc/environment
     regexp: '^SUDO_EDITOR='
-    line: 'SUDO_EDITOR=subl -w'
+    line: 'SUDO_EDITOR=subl3 -w'

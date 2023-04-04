@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     openssh
-  args:
-    warn: false
 
 - name: Copy configuration
   become: true
@@ -16,5 +14,3 @@
 - name: Enable sshd.service
   become: true
   command: systemctl enable sshd.service
-  args:
-    warn: false

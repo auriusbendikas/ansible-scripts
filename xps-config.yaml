@@ -5,12 +5,13 @@
     - sublime-text
     - git
     - i3
-    - gebaar
-    - opera
+    - firefox-developer-edition
     - sound
     - bluetooth
-    - sbupdate
+    - rclone
     - steam
+    - gebaar
+    - sbupdate
     - install
   vars:
     sbupdate_disk: /dev/nvme0n1
@@ -23,12 +24,11 @@
     install_pacman_packages:
       - gvfs-mtp
       - htop
+      - noto-fonts-cjk
       - xss-lock
       - i3lock
       - keepassxc
-      - rclone
       - bolt
-      - noto-fonts-cjk
     install_pikaur_packages:
     install_autostart:
       - comment: Start xss-lock

@@ -4,8 +4,6 @@
   command: >
     pacman --noconfirm --sync
     chromium
-  args:
-    warn: false
 
 - name: Configure initial chromium settings
   copy:

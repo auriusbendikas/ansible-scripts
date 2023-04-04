@@ -1,0 +1,42 @@
+---
+- name: Install rclone
+  become: true
+  command: >
+    pacman --noconfirm --sync
+    rclone
+
+- name: Configure Google Drive
+  community.general.ini_file:
+    path: ~/.config/rclone/rclone.conf
+    section: gdrive
+    option: '{{ item.key }}'
+    value: '{{ item.value }}'
+    mode: 0600
+  with_dict:
+    type: drive
+    skip_gdocs: true
+    scope: drive
+
+- name: Create GDrive folder
+  become: true
+  file:
+    path: '~/GDrive'
+    state: directory
+
+- name: Create templated configuration direcories
+  become: true
+  file:
+    path: '/{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'directory'
+
+- name: Create templated configurations
+  become: true
+  template:
+    src: '{{ item.src }}'
+    dest: '/{{ item.path }}'
+    mode: '{{ item.mode }}'
+  with_filetree: templates/
+  when: item.state == 'file'
