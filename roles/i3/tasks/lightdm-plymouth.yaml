@@ -48,16 +48,6 @@
   command: sbupdate
   when: sbupdate.stat.exists
 
-- name: Check if /usr/bin/generate-efi-image is installed
-  stat:
-    path: /usr/bin/generate-efi-image
-  register: generate_efi_image
-
-- name: Run /usr/bin/generate-efi-image
-  become: true
-  command: /usr/bin/generate-efi-image
-  when: generate_efi_image.stat.exists
-
 - name: Enable lightdm service
   become: true
   systemd:

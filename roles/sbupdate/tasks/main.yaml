@@ -28,8 +28,6 @@
   become: true
   command: >
     rm -rf
-    /usr/bin/generate-efi-image
-    /etc/pacman.d/hooks/generate-efi-image.hook
     /etc/efi-image-kernel-parameters
     /boot/efi/EFI
 

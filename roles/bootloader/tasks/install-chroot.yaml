@@ -35,7 +35,6 @@
     pacstrap /mnt
     bash
     bash-completion
-    binutils
     bzip2
     coreutils
     device-mapper

@@ -58,6 +58,18 @@
     line: PRESETS=('default')
   loop: '{{ partition_presets.files }}'
 
+- name: Configure /etc/mkinitcpio.d/linux-zen.preset
+  become: true
+  lineinfile:
+    path: /mnt/etc/mkinitcpio.d/linux-zen.preset
+    regexp: '^#?{{ item.key | regex_escape() }}='
+    line: '{{ item.key }}="{{ item.value }}"'
+  loop: '{{ query("dict", lines) }}'
+  vars:
+    lines:
+      default_uki: /boot/efi/EFI/BOOT/BOOTX64.EFI
+      default_options: --cmdline /etc/efi-image-kernel-parameters
+
 - name: Delete old initrd images
   become: true
   command: find /mnt/boot -type f -name '*.img' -exec rm -f {} \;
@@ -65,7 +77,3 @@
 - name: Regenerate initrd image
   become: true
   command: arch-chroot /mnt mkinitcpio --allpresets
-
-- name: Create EFI image
-  become: true
-  shell: arch-chroot /mnt /usr/bin/generate-efi-image
