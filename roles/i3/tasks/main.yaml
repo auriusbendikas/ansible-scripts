@@ -85,7 +85,7 @@
     regexp: '^{{ item.key | regex_escape() }}='
     line: '{{ item.key }}={{ item.value }}'
   with_dict:
-    KEYMAP: /usr/local/share/kbd/keymaps/aurius.map
+    KEYMAP: aurius
 
 - name: Configure /etc/environment for high DPI scaling
   become: true

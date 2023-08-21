@@ -1,4 +1,4 @@
-include "/usr/share/kbd/keymaps/i386/qwerty/us.map"
+include "i386/qwerty/us.map"
 keymaps 0-4,6,8,12
 strings as usual
 

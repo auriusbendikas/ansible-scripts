@@ -20,7 +20,7 @@
   loop: '{{ query("dict", lines) }}'
   vars:
     lines:
-      HOOKS: (base systemd plymouth autodetect keyboard sd-vconsole modconf block {{ 'mdadm_udev ' if bootloader_mdadm.rc == 0 }}{{ 'sd-encrypt ' if bootloader_cryptsetup.rc == 0 }}filesystems fsck)
+      HOOKS: (base systemd plymouth keyboard sd-vconsole autodetect modconf block {{ 'mdadm_udev ' if bootloader_mdadm.rc == 0 }}{{ 'sd-encrypt ' if bootloader_cryptsetup.rc == 0 }}filesystems fsck)
 
 - name: Configure /etc/plymouth/plymouthd.conf
   become: true
