@@ -20,9 +20,20 @@
     KEY_DIR: /root/secure-boot
     ESP_DIR: /boot/efi
     OUT_DIR:
-    SPLASH: /dev/null
+    SPLASH:
     BACKUP: 0
     CMDLINE_DEFAULT: root=/dev/mapper/root quiet splash
+
+- name: Configure /etc/mkinitcpio.d/linux-zen.preset
+  become: true
+  lineinfile:
+    path: /etc/mkinitcpio.d/linux-zen.preset
+    regexp: '^\s*({{ item | regex_escape() }}=.*)'
+    line: '#\g<1>'
+    backrefs: yes
+  loop:
+    - default_uki
+    - default_options
 
 - name: Remove previous EFI boot loader
   become: true
