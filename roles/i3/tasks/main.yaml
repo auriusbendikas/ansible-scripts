@@ -122,7 +122,7 @@
   vars:
     lines:
       KillUserProcesses: 'yes'
-      HandlePowerKey: ignore
+      HandlePowerKey: suspend
       HandleSuspendKey: suspend
       HandleHibernateKey: ignore
 
