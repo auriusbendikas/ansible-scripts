@@ -1,7 +1,7 @@
 ---
 i3_autostart:
   - comment: Start picom compositor
-    executable: picom --use-damage --no-fading-openclose --no-fading-destroyed-argb --shadow-exclude='window_type%="*"' --fade-exclude='window_type%="*"' --inactive-opacity=1.0 --menu-opacity=1.0 --backend=xr_glx_hybrid
+    executable: picom --use-damage --no-fading-openclose --no-fading-destroyed-argb --shadow-exclude='window_type%="*"' --fade-exclude='window_type%="*"' --inactive-opacity=1.0 --opacity-rule='100:window_type%="*menu"'
 
   - comment: Start Network Manager applet
     executable: nm-applet
