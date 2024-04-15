@@ -33,7 +33,7 @@
   vars:
     lines:
       MODULES: ({{ bootloader_video_driver }})
-      HOOKS: (base systemd keyboard sd-vconsole autodetect modconf block {{ 'mdadm_udev ' if raid_list }}{{ 'sd-encrypt ' if encryption_list }}filesystems fsck)
+      HOOKS: (base systemd keyboard sd-vconsole autodetect microcode modconf block {{ 'mdadm_udev ' if raid_list }}{{ 'sd-encrypt ' if encryption_list }}filesystems fsck)
 
 - name: Find all mkinitcpio preset files
   become: true

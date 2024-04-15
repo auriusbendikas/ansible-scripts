@@ -1,5 +1,4 @@
 ---
 dependencies:
   - role: locale
-  - role: pikaur
   - role: gnome-keyring

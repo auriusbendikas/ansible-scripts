@@ -1,9 +1,0 @@
-[roxterm profile]
-font=DejaVu Sans Mono 9
-always_show_tabs=0
-scroll_on_keystroke=1
-scrollback_lines=10000
-login_shell=1
-saturation=1,000000
-colour_scheme=Default
-new_tabs_adjacent=1

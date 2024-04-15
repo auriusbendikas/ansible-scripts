@@ -4,7 +4,7 @@
     <icon>utilities-terminal</icon>
     <name>Open Terminal Here</name>
     <unique-id>open-terminal-here</unique-id>
-    <command>roxterm --tab --directory=%f</command>
+    <command>xfce4-terminal --drop-down --tab --working-directory=%f</command>
     <description>Opens terminal in selected directory</description>
     <patterns>*</patterns>
     <startup-notify/>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-terminal" version="1.0">
+  <property name="command-login-shell" type="bool" value="true"/>
+  <property name="kinetic-scrolling" type="bool" value="true"/>
+  <property name="scrolling-unlimited" type="bool" value="true"/>
+  <property name="overlay-scrolling" type="bool" value="true"/>
+  <property name="misc-cursor-blinks" type="bool" value="true"/>
+  <property name="dropdown-keep-open-default" type="bool" value="true"/>
+  <property name="dropdown-always-show-tabs" type="bool" value="false"/>
+  <property name="font-name" type="string" value="DejaVu Sans Mono 9"/>
+  <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
+  <property name="background-darkness" type="double" value="0.84999999999999998"/>
+  <property name="misc-menubar-default" type="bool" value="false"/>
+  <property name="misc-borders-default" type="bool" value="false"/>
+  <property name="misc-slim-tabs" type="bool" value="true"/>
+  <property name="shortcuts-no-mnemonics" type="bool" value="true"/>
+  <property name="shortcuts-no-menukey" type="bool" value="true"/>
+  <property name="dropdown-width" type="uint" value="100"/>
+  <property name="dropdown-height" type="uint" value="100"/>
+  <property name="color-palette" type="string" value="#2c2c2c2c2c2c;#c0c000000000;#0000c0c00000;#c0c0c0c00000;#55555555ffff;#aaaa0000aaaa;#0000aaaaaaaa;#e8e8e8e8e8e8;#000000000000;#ffff00000000;#0000ffff0000;#ffffffff0000;#26266666ffff;#ffff0000ffff;#0000ffffffff;#ffffffffffff"/>
+  <property name="color-foreground" type="string" value="#cccccccccccc"/>
+</channel>

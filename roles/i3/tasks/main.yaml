@@ -10,32 +10,28 @@
     i3-wm
     i3status
     imagemagick
+    libertinus-font
     light
     lightdm
+    lightdm-slick-greeter
     numlockx
     p7zip
-    plymouth
     picom
+    plymouth
     rofi
     thunar
     thunar-archive-plugin
     thunar-media-tags-plugin
     thunar-volman
     ttf-dejavu
-    libertinus-font
-    lightdm-slick-greeter
     ttf-ubuntu-font-family
     xarchiver
+    xfce4-terminal
     xorg-server
     xorg-xprop
     xorg-xrandr
     xorg-xrdb
     xorg-xset
-
-- name: Install necessary AUR packages
-  command: >
-    pikaur --noconfirm --sync
-    roxterm
 
 - import_tasks: lightdm-plymouth.yaml
 
