@@ -3,6 +3,7 @@
   become: true
   command: >
     pacman --noconfirm --sync
+    brightnessctl
     feh
     gnome-themes-extra
     gvfs
@@ -11,7 +12,6 @@
     i3status
     imagemagick
     libertinus-font
-    light
     lightdm
     lightdm-slick-greeter
     numlockx

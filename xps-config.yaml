@@ -18,7 +18,7 @@
     sbupdate_partition_number: 1
     git_user: Firstname Lastname
     git_mail: adress@domain.com
-    i3_dpi: 192
+    i3_dpi: 186
     i3_background_color: '#000000'
     i3_background_image: /usr/share/pixmaps/hextille-background.svg
     install_pacman_packages:
