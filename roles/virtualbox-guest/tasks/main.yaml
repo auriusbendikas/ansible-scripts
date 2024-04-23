@@ -1,14 +1,14 @@
 ---
 - name: Remove virtualbox-guest-utils-nox
   become: true
-  command: >
+  ansible.builtin.command: >
     pacman --noconfirm --remove --recursive
     virtualbox-guest-utils-nox
   failed_when: false
 
 - name: Install full virtualbox guest additions packages
   become: true
-  command: >
+  ansible.builtin.command: >
     pacman --noconfirm --sync
     virtualbox-guest-utils
     xf86-video-vmware
@@ -16,7 +16,7 @@
 
 - name: Create templated configuration direcories
   become: true
-  file:
+  ansible.builtin.file:
     path: '/{{ item.path }}'
     state: directory
     mode: '{{ item.mode }}'
@@ -25,7 +25,7 @@
 
 - name: Create templated configurations
   become: true
-  template:
+  ansible.builtin.template:
     src: '{{ item.src }}'
     dest: '/{{ item.path }}'
     mode: '{{ item.mode }}'
@@ -34,15 +34,32 @@
 
 - name: Enable VirtualBox service
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: vboxservice
     enabled: true
 
+- name: Copy a /usr/bin/VBoxClient-all to /usr/bin/VBoxClient-all-vmsvga
+  become: true
+  ansible.builtin.copy:
+    src: /usr/bin/VBoxClient-all
+    dest: /usr/bin/VBoxClient-all-vmsvga
+    remote_src: true
+    mode: preserve
+
+- name: Modify /usr/bin/VBoxClient-all-vmsvga
+  become: true
+  ansible.builtin.lineinfile:
+    path: /usr/bin/VBoxClient-all-vmsvga
+    regexp: '--vmsvga'
+    line: '  /usr/bin/VBoxClient --vmsvga-session'
+    insertafter: '^if'
+
+
 - name: Configure /etc/lightdm/lightdm.conf
   become: true
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/lightdm/lightdm.conf
     regexp: '^#?{{ item.key | regex_escape() }}='
     line: '{{ item.key }}={{ item.value }}'
   with_dict:
-    display-setup-script: /usr/bin/VBoxClient-all
+    display-setup-script: /usr/bin/VBoxClient-all-vmsvga
