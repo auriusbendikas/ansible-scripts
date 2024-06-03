@@ -70,6 +70,11 @@
       default_uki: /boot/efi/EFI/BOOT/BOOTX64.EFI
       default_options: --cmdline /etc/efi-image-kernel-parameters
 
+- name: Create /boot/efi/EFI/BOOT directory
+  ansible.builtin.file:
+    path: /mnt/boot/efi/EFI/BOOT
+    state: directory
+
 - name: Delete old initrd images
   become: true
   command: find /mnt/boot -type f -name '*.img' -exec rm -f {} \;
