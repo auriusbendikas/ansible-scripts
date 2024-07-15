@@ -1,4 +1,4 @@
----
+  ---
 - name: Install necessary packages
   become: true
   command: >
@@ -14,6 +14,7 @@
     libertinus-font
     lightdm
     lightdm-slick-greeter
+    mate-polkit
     numlockx
     p7zip
     picom

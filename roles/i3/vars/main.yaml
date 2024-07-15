@@ -8,3 +8,6 @@ i3_autostart:
 
   - comment: Start Thunar in daemon mode
     executable: thunar --daemon
+
+  - comment: Start PolicyKit authentication agent
+    executable: /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
