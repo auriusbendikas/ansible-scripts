@@ -144,6 +144,7 @@ for_window [class="^Xarchiver$"] $floating_window_style
 for_window [class="^KeePassXC$"] $floating_window_style
 for_window [class="^Pavucontrol$"] $floating_window_style
 for_window [class="^Steam$" title="^Steam - .+$"] $floating_window_style
+for_window [class="mpv"] fullscreen enable
 
 assign [class="^Opera$"] → $ws1
 assign [class="^Thunar$"] → $ws3
