@@ -8,6 +8,6 @@
     - install
   vars:
     install_pacman_packages:
-      - htop
+      - btop
       - packer
     install_pikaur_packages:

@@ -8,14 +8,14 @@
     - adduser
   vars:
     bootloader_video_driver:
-    bootloader_hostname: steam
-    bootloader_extra_packages: amd-ucode
+    bootloader_hostname: oldie
+    bootloader_extra_packages: intel-ucode
     bash_executable: /usr/bin/arch-chroot /mnt /bin/bash
     user_name: test
     user_password: test
     user_fullname: Firstname Lastname
     partition_disk_list:
-      - device: /dev/nvme0n1
+      - device: /dev/sda
         partition:
           - number: 1
             size: 256M
@@ -26,12 +26,12 @@
             typecode: 8304
             name: ROOT
     bootloader_mount_list:
-      - device: /dev/nvme0n1p1
+      - device: /dev/sda1
         filesystem: vfat
         options:
         label: UEFI
         mount: /boot/efi
-      - device: /dev/nvme0n1p2
+      - device: /dev/sda2
         filesystem: ext4
         options:
         label: ROOT

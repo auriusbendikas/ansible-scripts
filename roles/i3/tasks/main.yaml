@@ -4,6 +4,7 @@
   command: >
     pacman --noconfirm --sync
     brightnessctl
+    ddcutil
     feh
     gnome-themes-extra
     gvfs

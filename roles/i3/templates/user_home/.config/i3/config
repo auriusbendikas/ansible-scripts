@@ -125,7 +125,6 @@ bindsym $mod+r mode "resize"
 bindsym XF86Terminal exec --no-startup-id xfce4-terminal --drop-down
 mode "gaming" {
     bindsym $mod+Shift+g mode "default"
-    bindsym $mod+Shift+q kill
 }
 bindsym $mod+Shift+g mode "gaming"
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false && pactl set-sink-volume @DEFAULT_SINK@ +5%

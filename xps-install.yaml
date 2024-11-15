@@ -10,7 +10,7 @@
     - adduser
   vars:
     bootloader_video_driver: i915
-    bootloader_hostname: testhost
+    bootloader_hostname: aurius-xps
     bootloader_extra_packages: intel-ucode terminus-font
     efi_keys_location: /mnt/root/secure-boot
     bash_executable: /usr/bin/arch-chroot /mnt /bin/bash

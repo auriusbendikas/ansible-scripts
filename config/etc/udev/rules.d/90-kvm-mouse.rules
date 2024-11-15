@@ -1,0 +1,2 @@
+ACTION=="add",    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="1532/84/200", RUN+="/usr/bin/ddcutil setvcp xF4 0xD0 --i2c-source-addr=x50 --noverify --disable-dynamic-sleep"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="1532/84/200", RUN+="/usr/bin/ddcutil setvcp xF4 0x90 --i2c-source-addr=x50 --noverify --disable-dynamic-sleep"

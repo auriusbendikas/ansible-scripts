@@ -8,7 +8,7 @@
     - adduser
   vars:
     bootloader_video_driver: i915
-    bootloader_hostname: testhost
+    bootloader_hostname: knucklehead
     bootloader_extra_packages: intel-ucode
     bash_executable: /usr/bin/arch-chroot /mnt /bin/bash
     user_name: test

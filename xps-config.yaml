@@ -23,13 +23,14 @@
     i3_background_image: /usr/share/pixmaps/hextille-background.svg
     install_pacman_packages:
       - gvfs-mtp
-      - htop
+      - btop
       - noto-fonts-cjk
       - xss-lock
       - i3lock
       - keepassxc
       - bolt
     install_pikaur_packages:
+      - brave-bin
     install_autostart:
       - comment: Start xss-lock
         executable: xss-lock -- i3lock --color=000000 --ignore-empty-password --show-failed-attempts
