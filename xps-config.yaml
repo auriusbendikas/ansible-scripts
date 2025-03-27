@@ -5,7 +5,7 @@
     - sublime-text
     - git
     - i3
-    - firefox-developer-edition
+    - librewolf
     - sound
     - bluetooth
     - rclone
@@ -22,9 +22,6 @@
     i3_background_color: '#000000'
     i3_background_image: /usr/share/pixmaps/hextille-background.svg
     install_pacman_packages:
-      - gvfs-mtp
-      - btop
-      - noto-fonts-cjk
       - xss-lock
       - i3lock
       - keepassxc

@@ -1,30 +1,24 @@
-  ---
+---
 - name: Install necessary packages
   become: true
   command: >
     pacman --noconfirm --sync
     brightnessctl
+    btop
     ddcutil
     feh
     gnome-themes-extra
-    gvfs
     hsetroot
     i3-wm
-    i3status
     imagemagick
-    libertinus-font
     lightdm
     lightdm-slick-greeter
     mate-polkit
-    numlockx
-    p7zip
+    noto-fonts-cjk
+    noto-fonts-emoji
     picom
     plymouth
-    rofi
     thunar
-    thunar-archive-plugin
-    thunar-media-tags-plugin
-    thunar-volman
     ttf-dejavu
     ttf-ubuntu-font-family
     xarchiver
@@ -34,6 +28,20 @@
     xorg-xrandr
     xorg-xrdb
     xorg-xset
+
+- name: Install optional packages
+  become: true
+  command: >
+    pacman --noconfirm --sync --asdeps
+    gvfs
+    gvfs-mtp
+    i3status
+    numlockx
+    p7zip
+    rofi
+    thunar-archive-plugin
+    thunar-media-tags-plugin
+    thunar-volman
 
 - import_tasks: lightdm-plymouth.yaml
 

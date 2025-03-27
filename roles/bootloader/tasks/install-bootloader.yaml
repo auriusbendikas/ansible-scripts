@@ -71,6 +71,7 @@
       default_options: --cmdline /etc/efi-image-kernel-parameters
 
 - name: Create /boot/efi/EFI/BOOT directory
+  become: true
   ansible.builtin.file:
     path: /mnt/boot/efi/EFI/BOOT
     state: directory

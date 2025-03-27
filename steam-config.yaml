@@ -5,7 +5,7 @@
     - sublime-text
     - git
     - i3
-    - firefox-developer-edition
+    - librewolf
     - sound
     - bluetooth
     - rclone
@@ -14,23 +14,18 @@
   vars:
     git_user: Firstname Lastname
     git_mail: adress@domain.com
-    video_driver: nvidia
+    video_driver: amdgpu
     i3_dpi: 93
     i3_rgba: rgb
     i3_background_color: '#000000'
     i3_background_image: /usr/share/pixmaps/hextille-background.svg
     install_pacman_packages:
-      - gvfs-mtp
-      - btop
-      - noto-fonts-cjk
       - xss-lock
       - i3lock
       - keepassxc
     install_pikaur_packages:
       - brave-bin
     install_autostart:
-      - comment: Enable Nvidia settings
-        executable: nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1'
       - comment: Start xss-lock
         executable: xss-lock -- i3lock --color=000000 --ignore-empty-password --show-failed-attempts
       - comment: Start KeePassXC password manager

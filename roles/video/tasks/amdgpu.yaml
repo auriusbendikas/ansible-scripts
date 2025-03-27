@@ -1,41 +1,40 @@
 ---
-- name: Install Intel 3D and VAPI drivers
+- name: Install AMD drivers
   become: true
   command: >
     pacman --noconfirm --sync
+    xf86-video-amdgpu
     mesa
-    vulkan-intel
-    intel-media-driver
+    vulkan-radeon
 
-- name: Add LIBVA_DRIVER_NAME to /etc/environment
+- name: Install AMD optional packages
   become: true
-  lineinfile:
-    path: /etc/environment
-    regexp: '^LIBVA_DRIVER_NAME='
-    line: 'LIBVA_DRIVER_NAME=iHD'
+  command: >
+    pacman --noconfirm --sync --asdeps
+    rocm-smi-lib
 
-- name: Install multilib Intel 3D and VAPI drivers
+- name: Install AMD multilib drivers
   become: true
   command: >
     pacman --noconfirm --sync
     lib32-mesa
-    lib32-vulkan-intel
+    lib32-vulkan-radeon
   when: video_multilib | bool
 
-- name: Create Intel templated configuration direcories
+- name: Create AMD templated configuration direcories
   become: true
   file:
     path: '/{{ item.path }}'
     state: directory
     mode: '{{ item.mode }}'
-  with_filetree: templates_intel/
+  with_filetree: templates_amdgpu/
   when: item.state == 'directory' and not item.path.startswith('user_home')
 
-- name: Create Intel templated configurations
+- name: Create AMD templated configurations
   become: true
   template:
     src: '{{ item.src }}'
     dest: '/{{ item.path }}'
     mode: '{{ item.mode }}'
-  with_filetree: templates_intel/
+  with_filetree: templates_amdgpu/
   when: item.state == 'file' and not item.path.startswith('user_home')

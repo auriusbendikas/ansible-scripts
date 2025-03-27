@@ -1,0 +1,10 @@
+---
+- name: Install librewolf
+  command: >
+    pikaur --noconfirm --sync
+    librewolf-bin
+
+- name: Configure initial librewolf settings
+  copy:
+    src: user_home/
+    dest: '~'

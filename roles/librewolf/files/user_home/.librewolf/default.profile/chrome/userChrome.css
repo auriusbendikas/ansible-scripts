@@ -1,0 +1,10 @@
+@media (-moz-bool-pref: "sidebar.verticalTabs") {
+  :root {
+    --tab-min-height: max(24px, calc(var(--tab-label-line-height) * 1em)) !important;
+    --tab-block-margin: 0px !important;
+  }
+}
+
+#vertical-pinned-tabs-container {
+  grid-template-columns: repeat(auto-fit, minmax(32px, auto)) !important;
+}

@@ -1,5 +1,4 @@
 ---
 video_driver: intel
 video_multilib: false
-video_mpv_vo: gpu
 video_mpv_hwdec: '{{ "nvdec" if video_driver == "nvidia" else "vaapi" }}'

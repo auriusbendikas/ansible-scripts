@@ -8,8 +8,6 @@
     nvidia-settings
     libvdpau
     libva-vdpau-driver
-    opencl-nvidia
-    cuda
 
 - name: Add LIBVA_DRIVER_NAME to /etc/environment
   become: true
@@ -25,5 +23,4 @@
     lib32-nvidia-utils
     lib32-libvdpau
     lib32-libva-vdpau-driver
-    lib32-opencl-nvidia
   when: video_multilib | bool
