@@ -1,7 +1,7 @@
 ---
 - name: Install sublime-text package
   command: >
-    pikaur --noconfirm --sync
+    paru --noconfirm --sync
     sublime-text-3
 
 - name: Create templated configuration direcories sublime-text

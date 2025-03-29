@@ -1,7 +1,7 @@
 ---
 - name: Install librewolf
   command: >
-    pikaur --noconfirm --sync
+    paru --noconfirm --sync
     librewolf-bin
 
 - name: Configure initial librewolf settings

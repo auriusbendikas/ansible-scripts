@@ -7,7 +7,7 @@
 
 - name: Install sbupdate
   command: >
-    pikaur --noconfirm --sync
+    paru --noconfirm --sync
     sbupdate-git
 
 - name: Configure /etc/sbupdate.conf

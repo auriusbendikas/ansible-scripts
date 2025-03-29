@@ -1,0 +1,10 @@
+---
+- name: Check whether paru is installed and on system path
+  ansible.builtin.shell: command -v paru
+  args:
+    executable: /bin/bash
+  register: paru_installed
+  failed_when: false
+
+- ansible.builtin.include_tasks: install.yaml
+  when: paru_installed.rc != 0

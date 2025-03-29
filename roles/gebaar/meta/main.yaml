@@ -1,4 +1,4 @@
 ---
 dependencies:
-  - role: pikaur
+  - role: paru
   - role: i3

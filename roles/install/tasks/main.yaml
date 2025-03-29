@@ -6,11 +6,11 @@
     {{ install_pacman_packages | join(' ') }}
   when: install_pacman_packages is iterable
 
-- name: Install {{ install_pikaur_packages | default('nothing', true) }}
+- name: Install {{ install_aur_packages | default('nothing', true) }}
   command: >
-    pikaur --noconfirm --sync
-    {{ install_pikaur_packages | join(' ') }}
-  when: install_pikaur_packages is iterable
+    paru --noconfirm --sync
+    {{ install_aur_packages | join(' ') }}
+  when: install_aur_packages is iterable
 
 - name: Augument global_autostart variable for autostart entry creation
   set_fact:

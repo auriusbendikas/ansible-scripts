@@ -10,4 +10,4 @@
     install_pacman_packages:
       - btop
       - packer
-    install_pikaur_packages:
+    install_aur_packages:

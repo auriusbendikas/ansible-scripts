@@ -10,7 +10,7 @@
 
 - name: Install git extending AUR packages
   command: >
-    pikaur --noconfirm --sync
+    paru --noconfirm --sync
     p4v
     bash-git-prompt
 

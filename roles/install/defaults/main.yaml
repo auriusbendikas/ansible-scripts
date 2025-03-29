@@ -1,4 +1,4 @@
 ---
 install_pacman_packages:
-install_pikaur_packages:
+install_aur_packages:
 install_autostart: []

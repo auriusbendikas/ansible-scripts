@@ -1,0 +1,47 @@
+---
+- name: Upgrade pacman packages
+  become: true
+  ansible.builtin.command: pacman --sync --refresh --sysupgrade --noconfirm
+
+- name: Install paru build dependencies
+  become: true
+  ansible.builtin.command: >
+    pacman --noconfirm --sync
+    base-devel
+
+- name: Clone paru GIT repository to /tmp/paru
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/paru-bin.git
+    dest: /tmp/paru
+    force: true
+
+- name: Build paru
+  environment:
+    HOME: /tmp/paru
+  ansible.builtin.shell: |
+    cd /tmp/paru
+    makepkg --noconfirm --cleanbuild --syncdeps --rmdeps --clean --force
+  args:
+    executable: /bin/bash
+
+- name: Install paru
+  become: true
+  ansible.builtin.shell: pacman --noconfirm --upgrade /tmp/paru/paru-bin-[!d]*.pkg.tar.zst
+  args:
+    executable: /bin/bash
+
+- name: Install paru optional dependencies
+  become: true
+  ansible.builtin.command: >
+    pacman --noconfirm --sync --asdeps
+    bat
+
+- name: Remove /tmp/paru
+  ansible.builtin.file:
+    path: /tmp/paru
+    state: absent
+
+- name: Configure paru settings
+  ansible.builtin.copy:
+    src: user_home/
+    dest: '~'

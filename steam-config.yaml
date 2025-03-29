@@ -23,7 +23,7 @@
       - xss-lock
       - i3lock
       - keepassxc
-    install_pikaur_packages:
+    install_aur_packages:
       - brave-bin
     install_autostart:
       - comment: Start xss-lock
