@@ -1,10 +1,13 @@
 ---
+- name: Fetch librewolf PGP keys
+  ansible.builtin.command: gpg --fetch-keys https://gpg.librewolf.net
+
 - name: Install librewolf
-  command: >
+  ansible.builtin.command: >
     paru --noconfirm --sync
     librewolf-bin
 
 - name: Configure initial librewolf settings
-  copy:
+  ansible.builtin.copy:
     src: user_home/
     dest: '~'
