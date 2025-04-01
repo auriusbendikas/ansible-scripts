@@ -110,3 +110,7 @@
 - name: Execute systemd-sysusers on chroot (Install default Arch Linux users and groups)
   become: true
   command: systemd-sysusers --root=/mnt
+
+- name: Enable weekly SSD maintenace
+  become: true
+  command: systemctl --root=/mnt enable fstrim.timer
