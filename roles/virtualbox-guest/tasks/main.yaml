@@ -11,7 +11,6 @@
   ansible.builtin.command: >
     pacman --noconfirm --sync
     virtualbox-guest-utils
-    xf86-video-vmware
     proxytunnel
 
 - name: Create templated configuration direcories
@@ -38,23 +37,6 @@
     name: vboxservice
     enabled: true
 
-- name: Copy a /usr/bin/VBoxClient-all to /usr/bin/VBoxClient-all-vmsvga
-  become: true
-  ansible.builtin.copy:
-    src: /usr/bin/VBoxClient-all
-    dest: /usr/bin/VBoxClient-all-vmsvga
-    remote_src: true
-    mode: preserve
-
-- name: Modify /usr/bin/VBoxClient-all-vmsvga
-  become: true
-  ansible.builtin.lineinfile:
-    path: /usr/bin/VBoxClient-all-vmsvga
-    regexp: '--vmsvga'
-    line: '  /usr/bin/VBoxClient --vmsvga-session'
-    insertafter: '^if'
-
-
 - name: Configure /etc/lightdm/lightdm.conf
   become: true
   ansible.builtin.lineinfile:
@@ -62,4 +44,4 @@
     regexp: '^#?{{ item.key | regex_escape() }}='
     line: '{{ item.key }}={{ item.value }}'
   with_dict:
-    display-setup-script: /usr/bin/VBoxClient-all-vmsvga
+    display-setup-script: /usr/bin/VBoxClient-all
