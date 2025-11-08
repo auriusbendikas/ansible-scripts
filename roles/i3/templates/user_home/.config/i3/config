@@ -5,7 +5,7 @@
 set $mod Mod4
 set $floating_window_style floating enable, border normal 2
 
-font pango:Ubuntu 10
+font pango:Ubuntu Nerd Font Propo 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

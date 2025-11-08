@@ -20,7 +20,8 @@
     plymouth
     thunar
     ttf-dejavu
-    ttf-ubuntu-font-family
+    ttf-dejavu-nerd
+    ttf-ubuntu-nerd
     xarchiver
     xfce4-terminal
     xorg-server

@@ -8,7 +8,7 @@
   <property name="misc-cursor-blinks" type="bool" value="true"/>
   <property name="dropdown-keep-open-default" type="bool" value="true"/>
   <property name="dropdown-always-show-tabs" type="bool" value="false"/>
-  <property name="font-name" type="string" value="DejaVu Sans Mono 9"/>
+  <property name="font-name" type="string" value="DejaVuSansM Nerd Font Mono 9"/>
   <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
   <property name="background-darkness" type="double" value="0.84999999999999998"/>
   <property name="misc-menubar-default" type="bool" value="false"/>
