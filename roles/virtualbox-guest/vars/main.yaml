@@ -1,0 +1,4 @@
+---
+virtualbox-guest_autostart:
+  - comment: Start imwheel
+    executable: imwheel

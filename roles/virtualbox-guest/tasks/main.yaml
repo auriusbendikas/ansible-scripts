@@ -12,6 +12,11 @@
     pacman --noconfirm --sync
     virtualbox-guest-utils
     proxytunnel
+    imwheel
+
+- name: Augument global_autostart variable for autostart entry creation
+  set_fact:
+    global_autostart: '{{ global_autostart | default([]) + virtualbox-guest_autostart }}'
 
 - name: Create templated configuration direcories
   become: true
