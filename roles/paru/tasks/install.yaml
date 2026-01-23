@@ -11,7 +11,7 @@
 
 - name: Clone paru GIT repository to /tmp/paru
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/paru-bin.git
+    repo: https://aur.archlinux.org/paru-static.git
     dest: /tmp/paru
     force: true
 
@@ -26,7 +26,7 @@
 
 - name: Install paru
   become: true
-  ansible.builtin.shell: pacman --noconfirm --upgrade /tmp/paru/paru-bin-[!d]*.pkg.tar.zst
+  ansible.builtin.shell: pacman --noconfirm --upgrade /tmp/paru/paru-static-[!d]*.pkg.tar.zst
   args:
     executable: /bin/bash
 

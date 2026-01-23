@@ -8,7 +8,7 @@
 
 - name: Install {{ install_aur_packages | default('nothing', true) }}
   command: >
-    paru --noconfirm --sync
+    paru-static --noconfirm --sync
     {{ install_aur_packages | join(' ') }}
   when: install_aur_packages is iterable
 

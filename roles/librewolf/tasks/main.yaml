@@ -4,7 +4,7 @@
 
 - name: Install librewolf
   ansible.builtin.command: >
-    paru --noconfirm --sync
+    paru-static --noconfirm --sync
     librewolf-bin
 
 - name: Configure initial librewolf settings

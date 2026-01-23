@@ -1,7 +1,7 @@
 ---
 - name: Install git extending AUR packages
   command: >
-    paru --noconfirm --sync
+    paru-static --noconfirm --sync
     gebaar-libinput-fork
 
 - name: Create templated configuration direcories of the user environment

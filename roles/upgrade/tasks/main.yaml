@@ -4,4 +4,4 @@
   command: pacman --sync --refresh --sysupgrade --noconfirm
 
 - name: Upgrade AUR packages
-  command: paru --sync --refresh --sysupgrade --noconfirm
+  command: paru-static --sync --refresh --sysupgrade --noconfirm

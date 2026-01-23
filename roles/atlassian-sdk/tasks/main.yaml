@@ -1,5 +1,5 @@
 ---
 - name: Install Atlassian SDK
   command: >
-    paru --noconfirm --sync
+    paru-static --noconfirm --sync
     atlassian-plugin-sdk
