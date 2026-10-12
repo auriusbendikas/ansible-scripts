@@ -133,10 +133,10 @@
       HandleSuspendKey: suspend
       HandleHibernateKey: ignore
 
-- name: Adding "{{ ansible_user_id }}" user to usergroup "video". This will allow "{{ ansible_user_id }}" user to control screen brigtness with "light"
+- name: Adding "{{ ansible_facts["user_id"] }}" user to usergroup "video". This will allow "{{ ansible_facts["user_id"] }}" user to control screen brigtness with "light"
   become: true
   user:
-    name: '{{ ansible_user_id }}'
+    name: '{{ ansible_facts["user_id"] }}'
     groups: video
     append: true
 

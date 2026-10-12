@@ -18,10 +18,10 @@
     name: docker
     state: present
 
-- name: Adding "{{ ansible_user_id }}" user to usergroup "docker". This will allow "{{ ansible_user_id }}" user execute Docker commands without sudo
+- name: Adding "{{ ansible_facts["user_id"] }}" user to usergroup "docker". This will allow "{{ ansible_facts["user_id"] }}" user execute Docker commands without sudo
   become: true
   user:
-    name: '{{ ansible_user_id }}'
+    name: '{{ ansible_facts["user_id"] }}'
     groups: docker
     append: true
 

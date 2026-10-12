@@ -1,6 +1,6 @@
 ---
 - name: Check whether paru is installed and on system path
-  ansible.builtin.shell: command -v paru
+  ansible.builtin.shell: command -v paru-static
   args:
     executable: /bin/bash
   register: paru_installed

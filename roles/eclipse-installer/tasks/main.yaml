@@ -4,7 +4,7 @@
   become: true
   command: >
     pacman --noconfirm --sync
-    webkit2gtk
+    webkit2gtk-4.1
 
 - name: Creating {{ eclipse_installer_folder | dirname }} directory if it does not exist
   file:
